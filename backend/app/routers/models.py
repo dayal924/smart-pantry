@@ -13,7 +13,12 @@ router = APIRouter(prefix="/models", tags=["models"])
 
 
 def model_dir(version: str) -> Path:
-    return Path(get_settings().storage_dir) / "models" / version
+    p = Path(get_settings().storage_dir)
+    if not p.is_absolute() and not p.exists():
+        backend_p = Path(__file__).resolve().parent.parent.parent / get_settings().storage_dir
+        if backend_p.exists():
+            p = backend_p
+    return p / "models" / version
 
 
 def public(doc: dict) -> dict:
