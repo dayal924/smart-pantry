@@ -1,6 +1,6 @@
 services:
   # ============================================================================
-  # 1. FastAPI Backend Web Service (Render Free Tier)
+  # FastAPI Backend Web Service (Render Free Tier)
   # ============================================================================
   - type: web
     name: smart-pantry-api
@@ -29,20 +29,3 @@ services:
         sync: false # Optional: free key from console.groq.com
       - key: GEMINI_API_KEY
         sync: false # Optional: free key from aistudio.google.com
-
-  # ============================================================================
-  # 2. Vite React Web Portal & Showcase (Render Free Static Site)
-  # ============================================================================
-  - type: web
-    name: smart-pantry-web
-    runtime: static
-    rootDir: web
-    plan: free
-    branch: main
-    buildCommand: npm install && npm run build
-    staticPublishPath: dist
-    routes:
-      - type: rewrite
-        source: /*
-        destination: /index.html
-
