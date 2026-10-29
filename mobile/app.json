@@ -10,16 +10,48 @@
     "ios": {
       "bundleIdentifier": "com.smartpantry.app",
       "supportsTablet": false,
-      "infoPlist": { "NSCameraUsageDescription": "Scan your groceries to add them to your pantry.", "NSPhotoLibraryUsageDescription": "Pick a photo of your groceries to scan." }
+      "infoPlist": {
+        "NSCameraUsageDescription": "Scan your groceries to add them to your pantry.",
+        "NSPhotoLibraryUsageDescription": "Pick a photo of your groceries to scan."
+      }
     },
-    "android": { "package": "com.smartpantry.app", "permissions": ["CAMERA", "POST_NOTIFICATIONS"] },
+    "android": {
+      "package": "com.smartpantry.app",
+      "permissions": [
+        "android.permission.CAMERA",
+        "android.permission.POST_NOTIFICATIONS",
+        "android.permission.RECORD_AUDIO"
+      ]
+    },
     "plugins": [
       "expo-router",
       "expo-secure-store",
       "onnxruntime-react-native",
-      ["expo-camera", { "cameraPermission": "Scan your groceries to add them to your pantry." }],
-      ["expo-image-picker", { "photosPermission": "Pick a photo of your groceries to scan." }],
-      ["expo-notifications", { "color": "#2E7D32" }]
-    ]
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Scan your groceries to add them to your pantry."
+        }
+      ],
+      [
+        "expo-image-picker",
+        {
+          "photosPermission": "Pick a photo of your groceries to scan."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "color": "#2E7D32"
+        }
+      ]
+    ],
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "1654ffde-9735-418c-8787-282e28fbe10a"
+      }
+    },
+    "owner": "dayal_008"
   }
 }
