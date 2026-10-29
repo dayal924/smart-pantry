@@ -1,0 +1,14 @@
+node_modules/
+.expo/
+.git/
+backend/
+web/
+yolo_training_package/
+.pytest_cache/
+__pycache__/
+.DS_Store
+
+# Explicitly ensure the mobile bundled model and assets are uploaded to EAS Build
+!mobile/assets/model/detector.onnx
+!mobile/assets/model/labels.json
+!mobile/assets/selftest/*

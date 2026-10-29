@@ -1,0 +1,11 @@
+node_modules/
+.expo/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.DS_Store
+
+# Explicitly ensure the bundled model and assets are uploaded to EAS Build
+!assets/model/detector.onnx
+!assets/model/labels.json
+!assets/selftest/*
