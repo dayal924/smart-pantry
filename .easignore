@@ -12,3 +12,4 @@ __pycache__/
 !mobile/assets/model/detector.onnx
 !mobile/assets/model/labels.json
 !mobile/assets/selftest/*
+

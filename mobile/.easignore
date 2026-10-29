@@ -9,3 +9,4 @@ yarn-error.log*
 !assets/model/detector.onnx
 !assets/model/labels.json
 !assets/selftest/*
+
