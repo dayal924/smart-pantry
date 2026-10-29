@@ -7,14 +7,26 @@ from .catalog import get_item, normalize_key, recipes
 DAY = 86400.0
 
 
-def days_left(expires_at: datetime, now: datetime) -> int:
-    return math.ceil((expires_at - now).total_seconds() / DAY)
+def _to_utc(dt: datetime | str) -> datetime:
+    if isinstance(dt, str):
+        dt = datetime.fromisoformat(dt.replace("Z", "+00:00"))
+    if dt.tzinfo is None:
+        dt = dt.replace(tzinfo=timezone.utc)
+    return dt
 
 
-def urgency(expires_at: datetime, now: datetime) -> str:
-    if now > expires_at:
+def days_left(expires_at: datetime | str, now: datetime | str) -> int:
+    exp = _to_utc(expires_at)
+    nw = _to_utc(now)
+    return math.ceil((exp - nw).total_seconds() / DAY)
+
+
+def urgency(expires_at: datetime | str, now: datetime | str) -> str:
+    exp = _to_utc(expires_at)
+    nw = _to_utc(now)
+    if nw > exp:
         return "expired"
-    d = days_left(expires_at, now)
+    d = days_left(exp, nw)
     return "use_now" if d <= 2 else "use_soon" if d <= 5 else "fresh_later"
 
 

@@ -52,7 +52,8 @@ export function getProduceByClass(classNameOrId: string | number): ProduceItem |
   let name = typeof classNameOrId === 'number' ? LABELS[classNameOrId] : classNameOrId;
   if (!name) return undefined;
   const key = name.toLowerCase().replace(/\s+/g, '_');
-  return PRODUCE_ITEMS[key] || (produceCatalogRaw.aliases as any)[key] ? PRODUCE_ITEMS[(produceCatalogRaw.aliases as any)[key]] : undefined;
+  const aliasTarget = (produceCatalogRaw.aliases as any)[key];
+  return PRODUCE_ITEMS[key] ?? (aliasTarget ? PRODUCE_ITEMS[aliasTarget] : undefined);
 }
 
 export function getEmojiForClass(className: string): string {

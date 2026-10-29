@@ -1,4 +1,5 @@
 from functools import lru_cache
+from pydantic import AliasChoices, Field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -6,7 +7,7 @@ class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=("backend/.env", ".env"), extra="ignore")
 
     mongodb_uri: str = "mongodb://localhost:27017"
-    mongodb_db: str = "smart_pantry"
+    mongodb_db: str = Field(default="smart_pantry", validation_alias=AliasChoices("mongodb_db", "mongodb_database"))
     jwt_secret: str = "smart-pantry-production-secure-jwt-key-256bit-entropy"
     jwt_alg: str = "HS256"
     access_ttl_min: int = 60

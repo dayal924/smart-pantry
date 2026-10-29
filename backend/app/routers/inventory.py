@@ -7,6 +7,7 @@ from ..core.db import get_db
 from ..core.deps import current_user
 from ..schemas import InventoryItem, SyncIn, SyncOut
 from ..services.catalog import get_item
+from ..services.recipes import _to_utc
 
 router = APIRouter(prefix="/inventory", tags=["inventory"])
 
@@ -41,7 +42,7 @@ async def sync(body: SyncIn, user: dict = Depends(current_user)):
                 await db.inventory_items.insert_one(doc)
             except DuplicateKeyError:
                 pass
-        elif it.updated_at > existing["updated_at"]:
+        elif _to_utc(it.updated_at) > _to_utc(existing["updated_at"]):
             await db.inventory_items.update_one({"user_id": uid, "client_id": cid}, {"$set": doc})
     for lg in body.logs:
         data = lg.model_dump()

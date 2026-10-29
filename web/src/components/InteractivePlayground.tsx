@@ -26,6 +26,7 @@ export const InteractivePlayground: React.FC = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [userDetections, setUserDetections] = useState<Detection[]>([]);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [, setTick] = useState(0);
 
   const activeSample = SAMPLE_DETECTIONS[selectedSampleIndex] || SAMPLE_DETECTIONS[0];
   const activeImageSrc = customImage || activeSample.src;
@@ -101,6 +102,7 @@ export const InteractivePlayground: React.FC = () => {
     det.className = newClass;
     det.emoji = produce?.emoji || '🥑';
     setSelectedDetection({ ...det });
+    setTick((t) => t + 1);
   };
 
   return (

@@ -49,9 +49,10 @@ async def stats(days: int = 7, admin: dict = Depends(admin_user)):
     db = get_db()
     since = datetime.now(timezone.utc) - timedelta(days=days)
     recent = [d async for d in db.scans.find({"created_at": {"$gte": since}}, {"latency_ms": 1, "source": 1, "corrections": 1, "num_detections": 1, "detector_version": 1}).limit(5000)]
-    lat = {"device": [], "cloud": []}
+    lat: dict[str, list[float]] = {"device": [], "cloud": []}
     for s in recent:
-        lat[s["source"]].append(s["latency_ms"])
+        src = s.get("source") or "device"
+        lat.setdefault(src, []).append(s.get("latency_ms", 0.0))
 
     def pct(v, p):
         return round(statistics.quantiles(v, n=100)[p - 1], 1) if len(v) >= 2 else (round(v[0], 1) if v else None)
