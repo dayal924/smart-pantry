@@ -150,7 +150,7 @@ export const DownloadSection: React.FC = () => {
 
             {/* Crisp Scannable QR Code */}
             <div className="p-2 relative group">
-              <QRCodeSvg value="smart-pantry-v1.0.apk" size={190} />
+              <QRCodeSvg value={apkDownloadPath} size={190} />
             </div>
 
             <div className="flex items-center gap-2 text-xs font-mono text-slate-700 dark:text-slate-300 bg-white dark:bg-black/40 px-3 py-1 rounded-full border border-slate-200 dark:border-white/5 shadow-sm">

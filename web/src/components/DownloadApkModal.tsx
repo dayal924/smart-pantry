@@ -74,7 +74,7 @@ export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onCl
         {/* QR Code and Instructions */}
         <div className="flex flex-col sm:flex-row items-center gap-5 p-4 rounded-2xl bg-slate-50 dark:bg-black/40 border border-slate-200 dark:border-white/5">
           <div className="shrink-0">
-            <QRCodeSvg value="smart-pantry-v1.0.apk" size={130} />
+            <QRCodeSvg value={apkDownloadPath} size={130} />
           </div>
           <div className="space-y-1.5 text-center sm:text-left text-xs text-slate-700 dark:text-slate-300">
             <div className="font-semibold text-slate-900 dark:text-white flex items-center justify-center sm:justify-start gap-1">
