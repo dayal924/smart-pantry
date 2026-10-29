@@ -49,9 +49,7 @@
         "expo-build-properties",
         {
           "android": {
-            "buildArchs": ["arm64-v8a"],
-            "enableProguardInReleaseBuilds": true,
-            "extraProguardRules": "-keep class ai.onnxruntime.** { *; }\n-keep class com.facebook.react.** { *; }"
+            "buildArchs": ["arm64-v8a"]
           }
         }
       ]
