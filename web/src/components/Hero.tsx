@@ -20,68 +20,139 @@ interface HeroProps {
 }
 
 export const Hero: React.FC<HeroProps> = ({ onOpenDownloadModal, onExploreFeatures }) => {
+  const [activeScene, setActiveScene] = useState<'veggies' | 'fruits'>('veggies');
   const [activeBoxIndex, setActiveBoxIndex] = useState(0);
   const [inferenceMs, setInferenceMs] = useState(38);
 
-  // Realistic, perfectly spaced non-overlapping produce targets
-  const detectedItems = [
-    { 
-      id: 'apple',
-      name: 'Apple', 
-      conf: '96.4%', 
-      freshness: '28d Shelf-life',
-      kcal: '~52 kcal',
-      color: 'border-emerald-400 bg-emerald-500/15 text-emerald-200', 
-      glow: 'shadow-[0_0_22px_rgba(52,211,153,0.5)]',
-      emoji: '🍎', 
-      x: '10%', 
-      y: '18%', 
-      w: '40%', 
-      h: '24%' 
+  // Authentic produce definitions matching exact visual contents of camera feed
+  const scenes = {
+    veggies: {
+      name: 'Supermarket Shelf',
+      image: './assets/phone-scanner-bg.jpg',
+      items: [
+        { 
+          id: 'capsicum-red',
+          name: 'Capsicum (Red)', 
+          conf: '96.4%', 
+          freshness: '14d Shelf-life',
+          kcal: '~31 kcal',
+          color: 'border-rose-400 bg-rose-500/15 text-rose-200', 
+          glow: 'shadow-[0_0_22px_rgba(244,63,94,0.5)]',
+          emoji: '🫑', 
+          x: '10%', 
+          y: '18%', 
+          w: '40%', 
+          h: '24%' 
+        },
+        { 
+          id: 'cucumber',
+          name: 'Cucumber', 
+          conf: '94.8%', 
+          freshness: '10d Shelf-life',
+          kcal: '~15 kcal',
+          color: 'border-emerald-400 bg-emerald-500/15 text-emerald-200', 
+          glow: 'shadow-[0_0_22px_rgba(16,185,129,0.5)]',
+          emoji: '🥒', 
+          x: '54%', 
+          y: '22%', 
+          w: '38%', 
+          h: '24%' 
+        },
+        { 
+          id: 'capsicum-yellow',
+          name: 'Capsicum (Yellow)', 
+          conf: '97.2%', 
+          freshness: '14d Shelf-life',
+          kcal: '~27 kcal',
+          color: 'border-amber-400 bg-amber-500/15 text-amber-200', 
+          glow: 'shadow-[0_0_22px_rgba(245,158,11,0.5)]',
+          emoji: '🫑', 
+          x: '12%', 
+          y: '48%', 
+          w: '38%', 
+          h: '24%' 
+        },
+        { 
+          id: 'zucchini',
+          name: 'Zucchini / Squash', 
+          conf: '93.5%', 
+          freshness: '12d Shelf-life',
+          kcal: '~17 kcal',
+          color: 'border-teal-400 bg-teal-500/15 text-teal-200', 
+          glow: 'shadow-[0_0_22px_rgba(20,184,166,0.5)]',
+          emoji: '🥒', 
+          x: '54%', 
+          y: '50%', 
+          w: '38%', 
+          h: '23%' 
+        },
+      ]
     },
-    { 
-      id: 'orange',
-      name: 'Orange', 
-      conf: '94.2%', 
-      freshness: '21d Shelf-life',
-      kcal: '~47 kcal',
-      color: 'border-amber-400 bg-amber-500/15 text-amber-200', 
-      glow: 'shadow-[0_0_22px_rgba(251,191,36,0.5)]',
-      emoji: '🍊', 
-      x: '54%', 
-      y: '22%', 
-      w: '38%', 
-      h: '24%' 
-    },
-    { 
-      id: 'avocado',
-      name: 'Avocado', 
-      conf: '97.8%', 
-      freshness: '7d Shelf-life',
-      kcal: '~160 kcal',
-      color: 'border-hud-green bg-hud-green/15 text-emerald-100', 
-      glow: 'shadow-[0_0_25px_rgba(0,255,102,0.6)]',
-      emoji: '🥑', 
-      x: '12%', 
-      y: '48%', 
-      w: '38%', 
-      h: '24%' 
-    },
-    { 
-      id: 'tomato',
-      name: 'Tomato', 
-      conf: '93.5%', 
-      freshness: '10d Shelf-life',
-      kcal: '~18 kcal',
-      color: 'border-rose-400 bg-rose-500/15 text-rose-200', 
-      glow: 'shadow-[0_0_22px_rgba(251,113,133,0.5)]',
-      emoji: '🍅', 
-      x: '54%', 
-      y: '50%', 
-      w: '38%', 
-      h: '23%' 
-    },
-  ];
+    fruits: {
+      name: 'Fresh Berry Bowl',
+      image: './assets/phone-fruits-bg.jpg',
+      items: [
+        { 
+          id: 'strawberry-1',
+          name: 'Strawberry (Prime)', 
+          conf: '89.9%', 
+          freshness: '6d Shelf-life',
+          kcal: '~33 kcal',
+          color: 'border-rose-400 bg-rose-500/15 text-rose-200', 
+          glow: 'shadow-[0_0_22px_rgba(244,63,94,0.5)]',
+          emoji: '🍓', 
+          x: '50%', 
+          y: '40%', 
+          w: '22%', 
+          h: '13%' 
+        },
+        { 
+          id: 'strawberry-2',
+          name: 'Strawberry (Ripe)', 
+          conf: '82.9%', 
+          freshness: '5d Shelf-life',
+          kcal: '~33 kcal',
+          color: 'border-red-400 bg-red-500/15 text-red-200', 
+          glow: 'shadow-[0_0_22px_rgba(239,68,68,0.5)]',
+          emoji: '🍓', 
+          x: '12%', 
+          y: '47%', 
+          w: '18%', 
+          h: '12%' 
+        },
+        { 
+          id: 'strawberry-3',
+          name: 'Strawberry (Cluster)', 
+          conf: '82.5%', 
+          freshness: '6d Shelf-life',
+          kcal: '~33 kcal',
+          color: 'border-pink-400 bg-pink-500/15 text-pink-200', 
+          glow: 'shadow-[0_0_22px_rgba(236,72,153,0.5)]',
+          emoji: '🍓', 
+          x: '12%', 
+          y: '38%', 
+          w: '16%', 
+          h: '11%' 
+        },
+        { 
+          id: 'strawberry-4',
+          name: 'Strawberry (Fresh)', 
+          conf: '80.6%', 
+          freshness: '7d Shelf-life',
+          kcal: '~33 kcal',
+          color: 'border-emerald-400 bg-emerald-500/15 text-emerald-200', 
+          glow: 'shadow-[0_0_22px_rgba(16,185,129,0.5)]',
+          emoji: '🍓', 
+          x: '39%', 
+          y: '46%', 
+          w: '19%', 
+          h: '13%' 
+        },
+      ]
+    }
+  };
+
+  const detectedItems = scenes[activeScene].items;
 
   // Subtle telemetry jitter simulating real-time ONNX execution (35ms - 41ms)
   useEffect(() => {
@@ -218,9 +289,10 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownloadModal, onExploreFeatur
                 {/* Crisp Grocery / Pantry Camera Scene */}
                 <div className="absolute inset-0 z-0">
                   <img
-                    src="./assets/phone-scanner-bg.jpg"
-                    alt="Pantry Camera Stream"
-                    className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.08] transition-all"
+                    src={scenes[activeScene].image}
+                    alt={scenes[activeScene].name}
+                    key={activeScene}
+                    className="w-full h-full object-cover filter brightness-[0.88] contrast-[1.08] transition-all duration-500 animate-fadeIn"
                   />
                   {/* Subtle vignette and cinematic scan grid */}
                   <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/60 pointer-events-none" />
@@ -238,15 +310,44 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownloadModal, onExploreFeatur
                   <div className="absolute bottom-0 right-0 w-4 h-4 border-b-2 border-r-2 border-white/40 rounded-br-lg" />
                 </div>
 
-                {/* Top HUD Telemetry Bar */}
-                <div className="relative z-20 pt-6 px-4 flex items-center justify-between text-[11px] font-mono text-emerald-300">
-                  <div className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-2.5 py-1 rounded-full border border-emerald-500/30 shadow-md">
+                {/* Top HUD Telemetry Bar & Scene Switcher */}
+                <div className="relative z-20 pt-6 px-3 flex items-center justify-between text-[11px] font-mono text-emerald-300">
+                  <div className="flex items-center gap-1.5 bg-black/75 backdrop-blur-md px-2 py-1 rounded-full border border-emerald-500/30 shadow-md">
                     <span className="w-1.5 h-1.5 rounded-full bg-hud-green animate-ping"></span>
-                    <span className="font-semibold text-white">YOLOv8m · ONNX</span>
+                    <span className="font-semibold text-white text-[10px]">YOLOv8m</span>
                   </div>
-                  <div className="bg-black/75 backdrop-blur-md px-2 py-1 rounded-full border border-white/10 text-slate-200 flex items-center gap-1.5 shadow-md">
+
+                  {/* Dual Mode Switcher: Market Shelf vs Berry Bowl */}
+                  <div className="flex items-center bg-black/85 backdrop-blur-md p-0.5 rounded-full border border-white/15 shadow-md">
+                    <button
+                      onClick={() => { setActiveScene('veggies'); setActiveBoxIndex(0); }}
+                      className={`px-2 py-0.5 rounded-full text-[10px] transition-all flex items-center gap-1 ${
+                        activeScene === 'veggies'
+                          ? 'bg-emerald-500/30 text-emerald-300 font-bold border border-emerald-400/40 shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                      title="Supermarket Produce Crates"
+                    >
+                      <span>🫑</span>
+                      <span>Shelf</span>
+                    </button>
+                    <button
+                      onClick={() => { setActiveScene('fruits'); setActiveBoxIndex(0); }}
+                      className={`px-2 py-0.5 rounded-full text-[10px] transition-all flex items-center gap-1 ${
+                        activeScene === 'fruits'
+                          ? 'bg-rose-500/30 text-rose-300 font-bold border border-rose-400/40 shadow-sm'
+                          : 'text-slate-400 hover:text-white'
+                      }`}
+                      title="Fresh Berry & Fruit Bowl"
+                    >
+                      <span>🍓</span>
+                      <span>Bowl</span>
+                    </button>
+                  </div>
+
+                  <div className="bg-black/75 backdrop-blur-md px-2 py-1 rounded-full border border-white/10 text-slate-200 flex items-center gap-1 shadow-md">
                     <Activity className="w-3 h-3 text-hud-green" />
-                    <span className="font-bold text-hud-green">{inferenceMs}ms</span>
+                    <span className="font-bold text-hud-green text-[10px]">{inferenceMs}ms</span>
                   </div>
                 </div>
 
