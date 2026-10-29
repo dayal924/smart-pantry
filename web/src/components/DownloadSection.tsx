@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 
 export const DownloadSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = './downloads/smart-pantry-v1.0.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/cr_xYXYyEd0q75cne1Rgz2yQ1fcGTly92TTgTHBtZAw.apk';
 
   const triggerDownload = () => {
     confetti({
@@ -18,14 +18,15 @@ export const DownloadSection: React.FC = () => {
     const link = document.createElement('a');
     link.href = apkDownloadPath;
     link.download = 'smart-pantry-v1.0.apk';
+    link.target = '_blank';
+    link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
   };
 
   const copyDownloadUrl = () => {
-    const fullUrl = window.location.origin + window.location.pathname.replace(/\/$/, '') + '/downloads/smart-pantry-v1.0.apk';
-    navigator.clipboard.writeText(fullUrl);
+    navigator.clipboard.writeText(apkDownloadPath);
     setCopied(true);
     setTimeout(() => setCopied(false), 2500);
   };
