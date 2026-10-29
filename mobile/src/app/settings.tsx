@@ -1,6 +1,6 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Platform, ScrollView, StyleSheet, Switch, Text, View } from 'react-native';
 import { Btn, Card, Chip, Muted, Screen, ScreenHeader, Stepper } from '../components/ui';
 import { NUTRIENT_KEYS } from '../domain/catalog';
@@ -8,6 +8,7 @@ import { SelfTestResult, runSelfTest } from '../ml/selfTest';
 import { useModel } from '../store/modelStore';
 import { useSettings } from '../store/settingsStore';
 import { C, R } from '../theme';
+import { getLastCrash, clearLastCrash, CrashInfo } from '../services/crashLogger';
 
 const STEP: Record<string, number> = {
   kcal: 100,
@@ -30,6 +31,11 @@ export default function SettingsScreen() {
   const s = useSettings();
   const model = useModel();
   const [st, setSt] = useState<SelfTestResult | 'running' | string | null>(null);
+  const [lastCrash, setLastCrash] = useState<CrashInfo | null>(null);
+
+  useEffect(() => {
+    getLastCrash().then(setLastCrash);
+  }, []);
 
   const test = async () => {
     setSt('running');
@@ -252,6 +258,50 @@ export default function SettingsScreen() {
               </React.Fragment>
             );
           })}
+        </Card>
+
+        {/* System Crash Analyzer */}
+        <Card style={styles.cardSection}>
+          <View style={styles.sectionHeaderRow}>
+            <Ionicons name="bug-outline" size={20} color={C.primary} />
+            <Text style={styles.sectionTitle}>System Crash Analyzer</Text>
+          </View>
+          <Muted>
+            Monitors unhandled exceptions, native JSI bridge errors, and model loading state.
+          </Muted>
+
+          {lastCrash ? (
+            <View style={[styles.testResultBox, { borderColor: '#EF4444', backgroundColor: '#FEF2F2' }]}>
+              <Text style={[styles.testResultTitle, { color: '#B91C1C' }]}>
+                ⚠️ Recorded Crash ({new Date(lastCrash.timestamp).toLocaleTimeString()})
+              </Text>
+              <Text style={{ fontSize: 12, color: '#B91C1C', fontWeight: '600' }}>
+                {lastCrash.message}
+              </Text>
+              {lastCrash.stack && (
+                <Text style={styles.testLine} numberOfLines={5}>
+                  {lastCrash.stack}
+                </Text>
+              )}
+              <Btn
+                title="Clear Crash Log"
+                kind="soft"
+                onPress={async () => {
+                  await clearLastCrash();
+                  setLastCrash(null);
+                }}
+              />
+            </View>
+          ) : (
+            <View style={[styles.testResultBox, { borderColor: '#10B981', backgroundColor: '#ECFDF5' }]}>
+              <Text style={[styles.testResultTitle, { color: '#047857' }]}>
+                ✅ All Systems Healthy
+              </Text>
+              <Text style={styles.testResultSub}>
+                No fatal exceptions or JSI bridge crashes recorded.
+              </Text>
+            </View>
+          )}
         </Card>
       </ScrollView>
     </Screen>
