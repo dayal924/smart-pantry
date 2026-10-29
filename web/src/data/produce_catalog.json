@@ -1,0 +1,851 @@
+{
+ "version": 1,
+ "aliases": {
+  "brinjal": "eggplant",
+  "aubergine": "eggplant",
+  "lady_finger": "okra",
+  "ladyfinger": "okra",
+  "bhindi": "okra",
+  "bell_pepper": "capsicum",
+  "pepper": "capsicum",
+  "corn": "maize",
+  "bitter_melon": "bitter_gourd",
+  "karela": "bitter_gourd",
+  "calabash": "bottle_gourd",
+  "lauki": "bottle_gourd",
+  "chili": "chilli",
+  "green_chili": "chilli",
+  "green_chilli": "chilli",
+  "mosambi": "green_orange",
+  "sweet_lime": "green_orange",
+  "tomatoes": "tomato",
+  "potatoes": "potato",
+  "carrots": "carrot",
+  "onions": "onion",
+  "bananas": "banana",
+  "apples": "apple",
+  "grapes": "grape",
+  "cherries": "cherry",
+  "mangoes": "mango",
+  "oranges": "orange"
+ },
+ "items": {
+  "apple": {
+   "display": "Apple",
+   "emoji": "🍎",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 28
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 180,
+   "nutrition_per_100g": {
+    "kcal": 52,
+    "carbs_g": 13.8,
+    "fiber_g": 2.4,
+    "vitamin_c_mg": 4.6,
+    "protein_g": 0.3
+   },
+   "tip": "Keep in the crisper, away from other produce - apples release ethylene that ripens neighbours."
+  },
+  "banana": {
+   "display": "Banana",
+   "emoji": "🍌",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 7
+   },
+   "default_storage": "room",
+   "grams_per_item": 120,
+   "nutrition_per_100g": {
+    "kcal": 89,
+    "carbs_g": 22.8,
+    "fiber_g": 2.6,
+    "vitamin_c_mg": 8.7,
+    "protein_g": 1.1
+   },
+   "tip": "Keep at room temperature and separate from the bunch to slow ripening. Fridge darkens the peel but the fruit stays fine."
+  },
+  "beetroot": {
+   "display": "Beetroot",
+   "emoji": "🟣",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 21
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 80,
+   "nutrition_per_100g": {
+    "kcal": 43,
+    "carbs_g": 9.6,
+    "fiber_g": 2.8,
+    "vitamin_c_mg": 4.9,
+    "protein_g": 1.6
+   },
+   "tip": "Trim the leaves (keep 2 cm of stem) and store unwashed in the fridge."
+  },
+  "bitter_gourd": {
+   "display": "Bitter Gourd",
+   "emoji": "🥒",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 7
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 100,
+   "nutrition_per_100g": {
+    "kcal": 17,
+    "carbs_g": 3.7,
+    "fiber_g": 2.8,
+    "vitamin_c_mg": 84,
+    "protein_g": 1.0
+   },
+   "tip": "Store unwashed in a paper bag in the fridge; use within a week."
+  },
+  "bottle_gourd": {
+   "display": "Bottle Gourd",
+   "emoji": "🥒",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 4,
+    "fridge": 10
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 500,
+   "nutrition_per_100g": {
+    "kcal": 14,
+    "carbs_g": 3.4,
+    "fiber_g": 0.5,
+    "vitamin_c_mg": 10.1,
+    "protein_g": 0.6
+   },
+   "tip": "Whole gourds keep a few days in a cool place; wrap and refrigerate cut pieces."
+  },
+  "cabbage": {
+   "display": "Cabbage",
+   "emoji": "🥬",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 21
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 900,
+   "nutrition_per_100g": {
+    "kcal": 25,
+    "carbs_g": 5.8,
+    "fiber_g": 2.5,
+    "vitamin_c_mg": 36.6,
+    "protein_g": 1.3
+   },
+   "tip": "Keep the head whole and wrapped in the fridge; cut cabbage dries out fast."
+  },
+  "capsicum": {
+   "display": "Capsicum",
+   "emoji": "🫑",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 4,
+    "fridge": 12
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 150,
+   "nutrition_per_100g": {
+    "kcal": 20,
+    "carbs_g": 4.6,
+    "fiber_g": 1.7,
+    "vitamin_c_mg": 80.4,
+    "protein_g": 0.9
+   },
+   "tip": "Store dry in the crisper; wash just before use."
+  },
+  "carrot": {
+   "display": "Carrot",
+   "emoji": "🥕",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 28
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 70,
+   "nutrition_per_100g": {
+    "kcal": 41,
+    "carbs_g": 9.6,
+    "fiber_g": 2.8,
+    "vitamin_c_mg": 5.9,
+    "protein_g": 0.9
+   },
+   "tip": "Remove green tops and keep in the crisper; soak limp carrots in cold water to revive."
+  },
+  "cauliflower": {
+   "display": "Cauliflower",
+   "emoji": "🥦",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 10
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 600,
+   "nutrition_per_100g": {
+    "kcal": 25,
+    "carbs_g": 5.0,
+    "fiber_g": 2.0,
+    "vitamin_c_mg": 48.2,
+    "protein_g": 1.9
+   },
+   "tip": "Store the head stem-side down, loosely wrapped, in the fridge."
+  },
+  "cherry": {
+   "display": "Cherry",
+   "emoji": "🍒",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 2,
+    "fridge": 10
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 8,
+   "nutrition_per_100g": {
+    "kcal": 50,
+    "carbs_g": 12.2,
+    "fiber_g": 1.6,
+    "vitamin_c_mg": 7.0,
+    "protein_g": 1.0
+   },
+   "tip": "Refrigerate unwashed in a breathable bag; wash right before eating."
+  },
+  "chilli": {
+   "display": "Chilli",
+   "emoji": "🌶️",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 4,
+    "fridge": 14
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 10,
+   "nutrition_per_100g": {
+    "kcal": 40,
+    "carbs_g": 8.8,
+    "fiber_g": 1.5,
+    "vitamin_c_mg": 143.7,
+    "protein_g": 2.0
+   },
+   "tip": "Keep dry in a paper bag in the fridge; freeze extras whole."
+  },
+  "coconut": {
+   "display": "Coconut",
+   "emoji": "🥥",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 10,
+    "fridge": 30
+   },
+   "default_storage": "room",
+   "grams_per_item": 400,
+   "nutrition_per_100g": {
+    "kcal": 354,
+    "carbs_g": 15.2,
+    "fiber_g": 9.0,
+    "vitamin_c_mg": 3.3,
+    "protein_g": 3.3
+   },
+   "tip": "Whole coconuts keep at room temperature; refrigerate opened flesh in water or an airtight box."
+  },
+  "cucumber": {
+   "display": "Cucumber",
+   "emoji": "🥒",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 10
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 300,
+   "nutrition_per_100g": {
+    "kcal": 15,
+    "carbs_g": 3.6,
+    "fiber_g": 0.5,
+    "vitamin_c_mg": 2.8,
+    "protein_g": 0.7
+   },
+   "tip": "Keep in the warmer part of the fridge (not the coldest shelf) and dry."
+  },
+  "eggplant": {
+   "display": "Eggplant",
+   "emoji": "🍆",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 7
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 300,
+   "nutrition_per_100g": {
+    "kcal": 25,
+    "carbs_g": 5.9,
+    "fiber_g": 3.0,
+    "vitamin_c_mg": 2.2,
+    "protein_g": 1.0
+   },
+   "tip": "Chill-sensitive: use within a few days, store unwashed in the crisper."
+  },
+  "ginger": {
+   "display": "Ginger",
+   "emoji": "🌿",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 14,
+    "fridge": 28
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 25,
+   "nutrition_per_100g": {
+    "kcal": 80,
+    "carbs_g": 17.8,
+    "fiber_g": 2.0,
+    "vitamin_c_mg": 5.0,
+    "protein_g": 1.8
+   },
+   "tip": "Refrigerate unpeeled in a paper bag, or freeze and grate straight from frozen."
+  },
+  "grape": {
+   "display": "Grape",
+   "emoji": "🍇",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 2,
+    "fridge": 10
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 150,
+   "nutrition_per_100g": {
+    "kcal": 69,
+    "carbs_g": 18.1,
+    "fiber_g": 0.9,
+    "vitamin_c_mg": 3.2,
+    "protein_g": 0.7
+   },
+   "tip": "Refrigerate unwashed on the stem in a perforated bag."
+  },
+  "green_orange": {
+   "display": "Green Orange",
+   "emoji": "🍊",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 21
+   },
+   "default_storage": "room",
+   "grams_per_item": 150,
+   "nutrition_per_100g": {
+    "kcal": 43,
+    "carbs_g": 9.4,
+    "fiber_g": 2.4,
+    "vitamin_c_mg": 53.2,
+    "protein_g": 0.9
+   },
+   "tip": "Keep at room temperature for about a week; refrigerate to extend."
+  },
+  "kiwi": {
+   "display": "Kiwi",
+   "emoji": "🥝",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 21
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 75,
+   "nutrition_per_100g": {
+    "kcal": 61,
+    "carbs_g": 14.7,
+    "fiber_g": 3.0,
+    "vitamin_c_mg": 92.7,
+    "protein_g": 1.1
+   },
+   "tip": "Ripen at room temperature, then move to the fridge to hold."
+  },
+  "maize": {
+   "display": "Maize",
+   "emoji": "🌽",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 1,
+    "fridge": 5
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 150,
+   "nutrition_per_100g": {
+    "kcal": 86,
+    "carbs_g": 18.7,
+    "fiber_g": 2.0,
+    "vitamin_c_mg": 6.8,
+    "protein_g": 3.3
+   },
+   "tip": "Sugars turn to starch quickly - refrigerate in the husk and cook within days."
+  },
+  "mango": {
+   "display": "Mango",
+   "emoji": "🥭",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 10
+   },
+   "default_storage": "room",
+   "grams_per_item": 200,
+   "nutrition_per_100g": {
+    "kcal": 60,
+    "carbs_g": 15.0,
+    "fiber_g": 1.6,
+    "vitamin_c_mg": 36.4,
+    "protein_g": 0.8
+   },
+   "tip": "Ripen at room temperature; refrigerate once ripe."
+  },
+  "onion": {
+   "display": "Onion",
+   "emoji": "🧅",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 30,
+    "fridge": 60
+   },
+   "default_storage": "room",
+   "grams_per_item": 110,
+   "nutrition_per_100g": {
+    "kcal": 40,
+    "carbs_g": 9.3,
+    "fiber_g": 1.7,
+    "vitamin_c_mg": 7.4,
+    "protein_g": 1.1
+   },
+   "tip": "Cool, dark and ventilated. Wrap cut onion tightly and refrigerate for 2-3 days; keep away from potatoes."
+  },
+  "orange": {
+   "display": "Orange",
+   "emoji": "🍊",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 21
+   },
+   "default_storage": "room",
+   "grams_per_item": 130,
+   "nutrition_per_100g": {
+    "kcal": 47,
+    "carbs_g": 11.8,
+    "fiber_g": 2.4,
+    "vitamin_c_mg": 53.2,
+    "protein_g": 0.9
+   },
+   "tip": "Fine on the counter for a week; fridge extends to about three."
+  },
+  "papaya": {
+   "display": "Papaya",
+   "emoji": "🍈",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 4,
+    "fridge": 8
+   },
+   "default_storage": "room",
+   "grams_per_item": 500,
+   "nutrition_per_100g": {
+    "kcal": 43,
+    "carbs_g": 10.8,
+    "fiber_g": 1.7,
+    "vitamin_c_mg": 60.9,
+    "protein_g": 0.5
+   },
+   "tip": "Ripen at room temperature, then refrigerate."
+  },
+  "pineapple": {
+   "display": "Pineapple",
+   "emoji": "🍍",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 7
+   },
+   "default_storage": "room",
+   "grams_per_item": 900,
+   "nutrition_per_100g": {
+    "kcal": 50,
+    "carbs_g": 13.1,
+    "fiber_g": 1.4,
+    "vitamin_c_mg": 47.8,
+    "protein_g": 0.5
+   },
+   "tip": "Does not ripen further after picking; refrigerate cut pieces airtight."
+  },
+  "potato": {
+   "display": "Potato",
+   "emoji": "🥔",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 30,
+    "fridge": 45
+   },
+   "default_storage": "room",
+   "grams_per_item": 170,
+   "nutrition_per_100g": {
+    "kcal": 77,
+    "carbs_g": 17.5,
+    "fiber_g": 2.2,
+    "vitamin_c_mg": 19.7,
+    "protein_g": 2.0
+   },
+   "tip": "Cool, dark place. Cold storage can turn starch to sugar; discard green or sprouted potatoes."
+  },
+  "pumpkin": {
+   "display": "Pumpkin",
+   "emoji": "🎃",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 60,
+    "fridge": 90
+   },
+   "default_storage": "room",
+   "grams_per_item": 1500,
+   "nutrition_per_100g": {
+    "kcal": 26,
+    "carbs_g": 6.5,
+    "fiber_g": 0.5,
+    "vitamin_c_mg": 9.0,
+    "protein_g": 1.0
+   },
+   "tip": "Whole pumpkins keep for weeks in a cool dry spot; refrigerate cut pieces."
+  },
+  "radish": {
+   "display": "Radish",
+   "emoji": "🔴",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 14
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 60,
+   "nutrition_per_100g": {
+    "kcal": 16,
+    "carbs_g": 3.4,
+    "fiber_g": 1.6,
+    "vitamin_c_mg": 14.8,
+    "protein_g": 0.7
+   },
+   "tip": "Cut off the tops and keep in a bag with a damp paper towel."
+  },
+  "tomato": {
+   "display": "Tomato",
+   "emoji": "🍅",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 6,
+    "fridge": 10
+   },
+   "default_storage": "room",
+   "grams_per_item": 120,
+   "nutrition_per_100g": {
+    "kcal": 18,
+    "carbs_g": 3.9,
+    "fiber_g": 1.2,
+    "vitamin_c_mg": 13.7,
+    "protein_g": 0.9
+   },
+   "tip": "Ripen at room temperature stem-side down; refrigerate only when fully ripe and bring back to room temperature to eat."
+  },
+  "spinach": {
+   "display": "Spinach",
+   "emoji": "🥬",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 1,
+    "fridge": 3
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 100,
+   "nutrition_per_100g": {
+    "kcal": 23,
+    "carbs_g": 3.6,
+    "fiber_g": 2.2,
+    "vitamin_c_mg": 28.1,
+    "protein_g": 2.9
+   },
+   "tip": "Keep dry with a paper towel in an airtight box; wash only before use."
+  },
+  "lemon": {
+   "display": "Lemon",
+   "emoji": "🍋",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 28
+   },
+   "default_storage": "room",
+   "grams_per_item": 60,
+   "nutrition_per_100g": {
+    "kcal": 29,
+    "carbs_g": 9.3,
+    "fiber_g": 2.8,
+    "vitamin_c_mg": 53.0,
+    "protein_g": 1.1
+   },
+   "tip": "Counter for a week; fridge for a month."
+  },
+  "garlic": {
+   "display": "Garlic",
+   "emoji": "🧄",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 30,
+    "fridge": 60
+   },
+   "default_storage": "room",
+   "grams_per_item": 40,
+   "nutrition_per_100g": {
+    "kcal": 149,
+    "carbs_g": 33.1,
+    "fiber_g": 2.1,
+    "vitamin_c_mg": 31.2,
+    "protein_g": 6.4
+   },
+   "tip": "Whole bulbs like cool, dry, airy storage."
+  },
+  "okra": {
+   "display": "Okra",
+   "emoji": "🌿",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 2,
+    "fridge": 7
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 12,
+   "nutrition_per_100g": {
+    "kcal": 33,
+    "carbs_g": 7.5,
+    "fiber_g": 3.2,
+    "vitamin_c_mg": 23.0,
+    "protein_g": 1.9
+   },
+   "tip": "Keep dry and unwashed in a paper bag; moisture makes it slimy."
+  },
+  "strawberry": {
+   "display": "Strawberry",
+   "emoji": "🍓",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 1,
+    "fridge": 5
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 15,
+   "nutrition_per_100g": {
+    "kcal": 32,
+    "carbs_g": 7.7,
+    "fiber_g": 2.0,
+    "vitamin_c_mg": 58.8,
+    "protein_g": 0.7
+   },
+   "tip": "Refrigerate unwashed in a single layer; remove any mouldy berries immediately."
+  },
+  "watermelon": {
+   "display": "Watermelon",
+   "emoji": "🍉",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 14
+   },
+   "default_storage": "room",
+   "grams_per_item": 4000,
+   "nutrition_per_100g": {
+    "kcal": 30,
+    "carbs_g": 7.6,
+    "fiber_g": 0.4,
+    "vitamin_c_mg": 8.1,
+    "protein_g": 0.6
+   },
+   "tip": "Whole melon on the counter; refrigerate cut pieces covered."
+  },
+  "pear": {
+   "display": "Pear",
+   "emoji": "🍐",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 4,
+    "fridge": 14
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 180,
+   "nutrition_per_100g": {
+    "kcal": 57,
+    "carbs_g": 15.2,
+    "fiber_g": 3.1,
+    "vitamin_c_mg": 4.3,
+    "protein_g": 0.4
+   },
+   "tip": "Ripen on the counter, then refrigerate."
+  },
+  "guava": {
+   "display": "Guava",
+   "emoji": "🍈",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 7
+   },
+   "default_storage": "room",
+   "grams_per_item": 100,
+   "nutrition_per_100g": {
+    "kcal": 68,
+    "carbs_g": 14.3,
+    "fiber_g": 5.4,
+    "vitamin_c_mg": 228.0,
+    "protein_g": 2.6
+   },
+   "tip": "Ripen at room temperature, then refrigerate."
+  },
+  "pomegranate": {
+   "display": "Pomegranate",
+   "emoji": "🔴",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 7,
+    "fridge": 30
+   },
+   "default_storage": "room",
+   "grams_per_item": 280,
+   "nutrition_per_100g": {
+    "kcal": 83,
+    "carbs_g": 18.7,
+    "fiber_g": 4.0,
+    "vitamin_c_mg": 10.2,
+    "protein_g": 1.7
+   },
+   "tip": "Whole fruit lasts weeks; refrigerate seeds airtight."
+  },
+  "peach": {
+   "display": "Peach",
+   "emoji": "🍑",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 3,
+    "fridge": 7
+   },
+   "default_storage": "room",
+   "grams_per_item": 150,
+   "nutrition_per_100g": {
+    "kcal": 39,
+    "carbs_g": 9.5,
+    "fiber_g": 1.5,
+    "vitamin_c_mg": 6.6,
+    "protein_g": 0.9
+   },
+   "tip": "Ripen on the counter, then refrigerate."
+  },
+  "melon": {
+   "display": "Melon",
+   "emoji": "🍈",
+   "category": "fruit",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 10
+   },
+   "default_storage": "room",
+   "grams_per_item": 1000,
+   "nutrition_per_100g": {
+    "kcal": 34,
+    "carbs_g": 8.2,
+    "fiber_g": 0.9,
+    "vitamin_c_mg": 36.7,
+    "protein_g": 0.8
+   },
+   "tip": "Whole melon keeps on the counter; refrigerate cut pieces covered."
+  },
+  "peas": {
+   "display": "Peas",
+   "emoji": "🟢",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 1,
+    "fridge": 5
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 80,
+   "nutrition_per_100g": {
+    "kcal": 81,
+    "carbs_g": 14.5,
+    "fiber_g": 5.1,
+    "vitamin_c_mg": 40.0,
+    "protein_g": 5.4
+   },
+   "tip": "Keep pods unwashed in the fridge and shell just before cooking."
+  },
+  "turnip": {
+   "display": "Turnip",
+   "emoji": "🟣",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 5,
+    "fridge": 14
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 120,
+   "nutrition_per_100g": {
+    "kcal": 28,
+    "carbs_g": 6.4,
+    "fiber_g": 1.8,
+    "vitamin_c_mg": 21.0,
+    "protein_g": 0.9
+   },
+   "tip": "Remove the greens and keep roots in the crisper."
+  },
+  "lettuce": {
+   "display": "Lettuce",
+   "emoji": "🥬",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 2,
+    "fridge": 7
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 300,
+   "nutrition_per_100g": {
+    "kcal": 15,
+    "carbs_g": 2.9,
+    "fiber_g": 1.3,
+    "vitamin_c_mg": 9.2,
+    "protein_g": 1.4
+   },
+   "tip": "Wrap in a dry towel inside a box; tear leaves rather than cutting."
+  },
+  "broccoli": {
+   "display": "Broccoli",
+   "emoji": "🥦",
+   "category": "vegetable",
+   "shelf_life_days": {
+    "room": 2,
+    "fridge": 7
+   },
+   "default_storage": "fridge",
+   "grams_per_item": 300,
+   "nutrition_per_100g": {
+    "kcal": 34,
+    "carbs_g": 6.6,
+    "fiber_g": 2.6,
+    "vitamin_c_mg": 89.2,
+    "protein_g": 2.8
+   },
+   "tip": "Store unwashed in a loose bag in the crisper."
+  }
+ }
+}

@@ -1,0 +1,678 @@
+[
+ {
+  "id": "cabbage-carrot-stirfry",
+  "title": "Cabbage & Carrot Stir-Fry",
+  "time_min": 20,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "cabbage",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "carrot",
+    "grams": 80,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "mustard seeds",
+   "turmeric",
+   "salt"
+  ],
+  "steps": [
+   "Heat oil, crackle mustard seeds.",
+   "Add sliced chilli, carrot, then cabbage with turmeric and salt.",
+   "Stir-fry on high heat 6-8 min until crisp-tender."
+  ]
+ },
+ {
+  "id": "baingan-bharta",
+  "title": "Baingan Bharta",
+  "time_min": 35,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "eggplant",
+    "grams": 400,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 100,
+    "optional": false
+   },
+   {
+    "key": "tomato",
+    "grams": 120,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "garlic",
+    "grams": 10,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "cumin",
+   "salt"
+  ],
+  "steps": [
+   "Roast the whole eggplant until the skin chars; peel and mash.",
+   "Saute onion, ginger, garlic, chilli, then tomato until soft.",
+   "Fold in the mash and cook 8 min."
+  ]
+ },
+ {
+  "id": "lauki-sabzi",
+  "title": "Lauki Sabzi",
+  "time_min": 25,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "bottle_gourd",
+    "grams": 400,
+    "optional": false
+   },
+   {
+    "key": "tomato",
+    "grams": 100,
+    "optional": false
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "cumin",
+   "turmeric",
+   "salt"
+  ],
+  "steps": [
+   "Temper cumin in oil; add ginger and chilli.",
+   "Add tomato and diced gourd with turmeric and salt.",
+   "Cover and cook 12-15 min until soft."
+  ]
+ },
+ {
+  "id": "karela-fry",
+  "title": "Karela Fry",
+  "time_min": 25,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "bitter_gourd",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 80,
+    "optional": false
+   }
+  ],
+  "staples": [
+   "oil",
+   "salt",
+   "turmeric",
+   "amchur"
+  ],
+  "steps": [
+   "Slice karela, salt it for 15 min and squeeze out the bitterness.",
+   "Fry onions, add karela and spices.",
+   "Cook uncovered until crisp."
+  ]
+ },
+ {
+  "id": "aloo-gobi",
+  "title": "Aloo Gobi",
+  "time_min": 30,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "potato",
+    "grams": 250,
+    "optional": false
+   },
+   {
+    "key": "cauliflower",
+    "grams": 250,
+    "optional": false
+   },
+   {
+    "key": "tomato",
+    "grams": 100,
+    "optional": false
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "cumin",
+   "turmeric",
+   "coriander powder",
+   "salt"
+  ],
+  "steps": [
+   "Saute cumin, ginger, chilli, tomato.",
+   "Add potato and cauliflower with spices and a splash of water.",
+   "Cover and cook 15-18 min."
+  ]
+ },
+ {
+  "id": "fruit-salad",
+  "title": "Fresh Fruit Salad",
+  "time_min": 10,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "apple",
+    "grams": 150,
+    "optional": false
+   },
+   {
+    "key": "banana",
+    "grams": 120,
+    "optional": false
+   },
+   {
+    "key": "grape",
+    "grams": 100,
+    "optional": true
+   },
+   {
+    "key": "kiwi",
+    "grams": 75,
+    "optional": true
+   },
+   {
+    "key": "green_orange",
+    "grams": 100,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "lemon juice",
+   "chaat masala (optional)"
+  ],
+  "steps": [
+   "Chop all fruit into bite-size pieces.",
+   "Toss with lemon juice.",
+   "Serve chilled."
+  ]
+ },
+ {
+  "id": "mango-banana-smoothie",
+  "title": "Mango-Banana Smoothie",
+  "time_min": 5,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "mango",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "banana",
+    "grams": 120,
+    "optional": false
+   }
+  ],
+  "staples": [
+   "milk or curd",
+   "honey"
+  ],
+  "steps": [
+   "Blend mango, banana and milk until smooth.",
+   "Sweeten to taste and serve cold."
+  ]
+ },
+ {
+  "id": "beet-carrot-salad",
+  "title": "Beet & Carrot Salad",
+  "time_min": 15,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "beetroot",
+    "grams": 160,
+    "optional": false
+   },
+   {
+    "key": "carrot",
+    "grams": 140,
+    "optional": false
+   },
+   {
+    "key": "cucumber",
+    "grams": 100,
+    "optional": true
+   },
+   {
+    "key": "lemon",
+    "grams": 30,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "salt",
+   "black pepper",
+   "roasted cumin"
+  ],
+  "steps": [
+   "Grate beetroot and carrot.",
+   "Add sliced cucumber, lemon juice and spices.",
+   "Toss and rest 5 min."
+  ]
+ },
+ {
+  "id": "cucumber-raita",
+  "title": "Cucumber Raita",
+  "time_min": 10,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "cucumber",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 40,
+    "optional": true
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "curd",
+   "roasted cumin",
+   "salt"
+  ],
+  "steps": [
+   "Grate cucumber and squeeze lightly.",
+   "Whisk into curd with onion, chilli, cumin and salt."
+  ]
+ },
+ {
+  "id": "stuffed-capsicum",
+  "title": "Stuffed Capsicum",
+  "time_min": 40,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "capsicum",
+    "grams": 300,
+    "optional": false
+   },
+   {
+    "key": "potato",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 50,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "cumin",
+   "garam masala",
+   "salt"
+  ],
+  "steps": [
+   "Boil and mash the potato; mix with sauteed onion and spices.",
+   "Hollow the capsicums and stuff.",
+   "Pan-cook covered 12-15 min, turning once."
+  ]
+ },
+ {
+  "id": "tomato-soup",
+  "title": "Tomato Soup",
+  "time_min": 30,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "tomato",
+    "grams": 400,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 80,
+    "optional": false
+   },
+   {
+    "key": "carrot",
+    "grams": 60,
+    "optional": true
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "garlic",
+    "grams": 10,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "butter or oil",
+   "salt",
+   "black pepper"
+  ],
+  "steps": [
+   "Saute onion, garlic and ginger; add chopped tomato and carrot.",
+   "Simmer 15 min, then blend.",
+   "Season and serve hot."
+  ]
+ },
+ {
+  "id": "pumpkin-sabzi",
+  "title": "Pumpkin Sabzi",
+  "time_min": 25,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "pumpkin",
+    "grams": 400,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "fenugreek seeds",
+   "turmeric",
+   "salt",
+   "jaggery (pinch)"
+  ],
+  "steps": [
+   "Temper fenugreek seeds; add ginger and chilli.",
+   "Add cubed pumpkin, turmeric and salt.",
+   "Cover-cook 15 min, mash lightly."
+  ]
+ },
+ {
+  "id": "corn-chaat",
+  "title": "Corn Chaat",
+  "time_min": 15,
+  "servings": 2,
+  "ingredients": [
+   {
+    "key": "maize",
+    "grams": 300,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 40,
+    "optional": false
+   },
+   {
+    "key": "tomato",
+    "grams": 60,
+    "optional": false
+   },
+   {
+    "key": "lemon",
+    "grams": 20,
+    "optional": true
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "butter",
+   "chaat masala",
+   "salt"
+  ],
+  "steps": [
+   "Boil corn kernels 8 min.",
+   "Toss with onion, tomato, chilli and spices.",
+   "Finish with lemon."
+  ]
+ },
+ {
+  "id": "ginger-carrot-soup",
+  "title": "Ginger-Carrot Soup",
+  "time_min": 30,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "carrot",
+    "grams": 300,
+    "optional": false
+   },
+   {
+    "key": "ginger",
+    "grams": 15,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 60,
+    "optional": false
+   }
+  ],
+  "staples": [
+   "oil",
+   "salt",
+   "black pepper"
+  ],
+  "steps": [
+   "Saute onion and ginger; add chopped carrot and water.",
+   "Simmer 18 min, blend smooth, season."
+  ]
+ },
+ {
+  "id": "coconut-chutney",
+  "title": "Coconut Chutney",
+  "time_min": 10,
+  "servings": 4,
+  "ingredients": [
+   {
+    "key": "coconut",
+    "grams": 150,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 10,
+    "optional": false
+   },
+   {
+    "key": "ginger",
+    "grams": 10,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "salt",
+   "curd or water",
+   "mustard seeds"
+  ],
+  "steps": [
+   "Grind coconut, chilli, ginger and salt with a little water.",
+   "Temper mustard seeds and pour over."
+  ]
+ },
+ {
+  "id": "veg-pulao",
+  "title": "Vegetable Pulao",
+  "time_min": 35,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "cauliflower",
+    "grams": 150,
+    "optional": false
+   },
+   {
+    "key": "carrot",
+    "grams": 80,
+    "optional": false
+   },
+   {
+    "key": "capsicum",
+    "grams": 80,
+    "optional": true
+   },
+   {
+    "key": "onion",
+    "grams": 60,
+    "optional": false
+   }
+  ],
+  "staples": [
+   "rice",
+   "oil",
+   "whole spices",
+   "salt"
+  ],
+  "steps": [
+   "Saute onion and whole spices; add vegetables.",
+   "Add washed rice and water (1:1.75).",
+   "Cook covered 15 min, rest 5."
+  ]
+ },
+ {
+  "id": "palak-aloo",
+  "title": "Palak Aloo",
+  "time_min": 25,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "spinach",
+    "grams": 300,
+    "optional": false
+   },
+   {
+    "key": "potato",
+    "grams": 150,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 60,
+    "optional": false
+   },
+   {
+    "key": "garlic",
+    "grams": 10,
+    "optional": true
+   },
+   {
+    "key": "tomato",
+    "grams": 80,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "oil",
+   "cumin",
+   "salt"
+  ],
+  "steps": [
+   "Boil potato cubes; blanch spinach and puree.",
+   "Saute onion, garlic, tomato; add puree and potato.",
+   "Simmer 8 min."
+  ]
+ },
+ {
+  "id": "pineapple-salsa",
+  "title": "Pineapple Salsa",
+  "time_min": 10,
+  "servings": 3,
+  "ingredients": [
+   {
+    "key": "pineapple",
+    "grams": 200,
+    "optional": false
+   },
+   {
+    "key": "onion",
+    "grams": 40,
+    "optional": false
+   },
+   {
+    "key": "chilli",
+    "grams": 5,
+    "optional": false
+   },
+   {
+    "key": "tomato",
+    "grams": 80,
+    "optional": true
+   }
+  ],
+  "staples": [
+   "lemon juice",
+   "salt",
+   "coriander"
+  ],
+  "steps": [
+   "Dice everything finely.",
+   "Mix with lemon juice and salt; rest 10 min."
+  ]
+ }
+]
