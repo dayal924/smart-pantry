@@ -3,12 +3,19 @@ node_modules/
 .git/
 backend/
 web/
+dist/
+mobile/dist/
+mobile/android/
+mobile/ios/
 yolo_training_package/
 .pytest_cache/
 __pycache__/
 .DS_Store
 
 # Explicitly ensure the mobile bundled model and assets are uploaded to EAS Build
+!mobile/assets/icon.png
+!mobile/assets/adaptive-icon.png
+!mobile/assets/splash-icon.png
 !mobile/assets/model/detector.onnx
 !mobile/assets/model/labels.json
 !mobile/assets/selftest/*

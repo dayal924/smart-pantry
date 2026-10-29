@@ -7,6 +7,7 @@
     "orientation": "portrait",
     "userInterfaceStyle": "light",
     "newArchEnabled": false,
+    "icon": "./assets/icon.png",
     "ios": {
       "bundleIdentifier": "com.smartpantry.app",
       "supportsTablet": false,
@@ -17,6 +18,10 @@
     },
     "android": {
       "package": "com.smartpantry.app",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0B130E"
+      },
       "permissions": [
         "android.permission.CAMERA",
         "android.permission.POST_NOTIFICATIONS",
