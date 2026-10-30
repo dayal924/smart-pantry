@@ -10,7 +10,7 @@ interface DownloadApkModalProps {
 
 export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/cr_xYXYyEd0q75cne1Rgz2yQ1fcGTly92TTgTHBtZAw.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/7zsG44pKVtA2knDQHo1fxsAJ4bqdNnRK2cx4-vshkMY.apk';
 
   if (!isOpen) return null;
 
@@ -85,7 +85,7 @@ export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onCl
               Scan with your Android camera to download directly to your mobile phone.
             </p>
             <div className="text-[11px] font-mono text-pantry-700 dark:text-emerald-400 font-semibold pt-1">
-              Size: ~48.4 MB · Android 9.0+
+              Size: ~197 MB · Android 9.0+
             </div>
           </div>
         </div>

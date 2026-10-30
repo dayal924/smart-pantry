@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 
 export const DownloadSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/cr_xYXYyEd0q75cne1Rgz2yQ1fcGTly92TTgTHBtZAw.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/7zsG44pKVtA2knDQHo1fxsAJ4bqdNnRK2cx4-vshkMY.apk';
 
   const triggerDownload = () => {
     confetti({
@@ -81,8 +81,8 @@ export const DownloadSection: React.FC = () => {
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
                 <div className="p-3 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm">
                   <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Package Size</div>
-                  <div className="text-base font-bold text-slate-900 dark:text-white font-mono mt-0.5">~48.4 MB</div>
-                  <div className="text-[10px] text-slate-400 dark:text-slate-500">Includes ONNX weights</div>
+                  <div className="text-base font-bold text-slate-900 dark:text-white font-mono mt-0.5">~197 MB</div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500">Includes 99MB ONNX model</div>
                 </div>
 
                 <div className="p-3 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/5 shadow-sm">
@@ -93,8 +93,8 @@ export const DownloadSection: React.FC = () => {
 
                 <div className="p-3 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/5 col-span-2 sm:col-span-1 shadow-sm">
                   <div className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Architecture</div>
-                  <div className="text-base font-bold text-pantry-700 dark:text-hud-green font-mono mt-0.5">ARM64 & x86_64</div>
-                  <div className="text-[10px] text-slate-400 dark:text-slate-500">Universal Native Build</div>
+                  <div className="text-base font-bold text-pantry-700 dark:text-hud-green font-mono mt-0.5">ARM64 (v8a)</div>
+                  <div className="text-[10px] text-slate-400 dark:text-slate-500">Optimized Phone Build</div>
                 </div>
               </div>
 
