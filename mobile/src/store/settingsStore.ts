@@ -16,10 +16,10 @@ export interface Settings {
 export const useSettings = create<Settings>()(
   persist(
     (set) => ({
-      conf: 0.35, iou: 0.45, accel: 'cpu', autoModelUpdate: true, notify: true,
+      conf: 0.25, iou: 0.45, accel: 'cpu', autoModelUpdate: true, notify: true,
       targets: { kcal: 2000, carbs_g: 250, fiber_g: 28, vitamin_c_mg: 90, protein_g: 50 },
       set: (p) => set(p),
     }),
-    { name: 'settings-v1', storage: createJSONStorage(() => AsyncStorage) },
+    { name: 'settings-v2', storage: createJSONStorage(() => AsyncStorage) },
   ),
 );
