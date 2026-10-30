@@ -18,7 +18,23 @@ for (const p of bindingPaths) {
         'try { if (Module && typeof Module.install === \'function\') { Module.install(); } } catch (e) { console.warn(\'ONNX install warning:\', e); }'
       );
       fs.writeFileSync(p, content, 'utf8');
-      console.log('Patched', p);
+      console.log('Patched Module.install in', p);
+    }
+    // Replace throwing proxy getter with safe lazy handler so route scanning doesn't crash on listSupportedBackends
+    if (content.includes('OrtApi is not initialized') && !content.includes('listSupportedBackends')) {
+      content = content.replace(
+        /get:\s*\(\)\s*=>\s*\{\s*throw new Error\('OrtApi is not initialized[^']+'\);\s*\}/g,
+        `get: (_target, prop) => {
+          if (typeof globalThis.OrtApi !== 'undefined' && globalThis.OrtApi && globalThis.OrtApi[prop] !== undefined) return globalThis.OrtApi[prop];
+          if (prop === 'listSupportedBackends') return () => ['cpu'];
+          return (...args) => {
+            if (typeof globalThis.OrtApi !== 'undefined' && globalThis.OrtApi && typeof globalThis.OrtApi[prop] === 'function') return globalThis.OrtApi[prop](...args);
+            throw new Error('OrtApi is not initialized. Please make sure Onnxruntime installation is successful.');
+          };
+        }`
+      );
+      fs.writeFileSync(p, content, 'utf8');
+      console.log('Patched OrtApi proxy in', p);
     }
   }
 }
