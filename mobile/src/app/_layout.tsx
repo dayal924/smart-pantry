@@ -25,7 +25,15 @@ export default function RootLayout() {
 
   useEffect(() => {
     hydrate();
-    useModel.getState().load(useSettings.getState().accel);
+    // Warm up model non-blockingly after app mounts
+    setTimeout(() => {
+      useModel
+        .getState()
+        .load(useSettings.getState().accel)
+        .catch((err) => {
+          console.warn('Initial model load caught:', err);
+        });
+    }, 600);
   }, []);
 
   // after login: sync, refresh recipes, push token, silent OTA model check

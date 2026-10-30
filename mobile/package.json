@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "check:model": "node scripts/check-model.js",
+    "postinstall": "node scripts/patch-onnx.js",
     "start": "npm run check:model && expo start --dev-client",
     "android": "npm run check:model && expo run:android",
     "ios": "npm run check:model && expo run:ios",
