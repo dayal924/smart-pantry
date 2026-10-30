@@ -2,6 +2,8 @@ import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Alert, Pressable, SectionList, StyleSheet, Text, View } from 'react-native';
 import { ClassPicker } from '../../components/ClassPicker';
+import { ItemNutritionSection } from '../../components/ItemNutritionSection';
+import { PantryNutritionHeader } from '../../components/PantryNutritionHeader';
 import { Btn, Card, Chip, EmptyState, Muted, Screen, ScreenHeader } from '../../components/ui';
 import { getCatalogItem } from '../../domain/catalog';
 import { URGENCY_META, URGENCY_ORDER, Urgency, daysLeft, urgencyOf } from '../../domain/shelfLife';
@@ -96,22 +98,10 @@ export default function Pantry() {
         showsVerticalScrollIndicator={false}
         ListHeaderComponent={
           active.length > 0 ? (
-            <View style={styles.pantryBanner}>
-              <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
-                <Text style={styles.pantryBannerTitle}>
-                  🥗 Smart Freshness & Storage
-                </Text>
-                <Pressable
-                  onPress={() => router.push('/(tabs)/copilot')}
-                  style={styles.copilotShortcutBtn}
-                >
-                  <Text style={styles.copilotShortcutText}>✨ Cook with Copilot</Text>
-                </Pressable>
-              </View>
-              <Text style={styles.pantryBannerSub}>
-                Recommends Fridge vs Room storage. Mark <Text style={{ fontWeight: '700' }}>Consumed</Text> to log nutrition or <Text style={{ fontWeight: '700' }}>Discarded</Text> to record waste.
-              </Text>
-            </View>
+            <PantryNutritionHeader
+              activePantry={active}
+              onCookPress={() => router.push('/(tabs)/copilot')}
+            />
           ) : null
         }
         ListEmptyComponent={
@@ -191,6 +181,13 @@ export default function Pantry() {
                   <Text style={styles.pantryTipText}>💡 {cat.tip}</Text>
                 </View>
               ) : null}
+
+              {/* Per-Item Nutrition & Health Benefits Tracker */}
+              <ItemNutritionSection
+                classKey={i.classKey}
+                name={i.name}
+                quantity={i.quantity}
+              />
 
               <View style={styles.actionRow}>
                 <Btn
