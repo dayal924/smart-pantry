@@ -10,7 +10,7 @@ interface DownloadApkModalProps {
 
 export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/6ni9O_3wkXM71cCkiYExI3fhoaSr0NXAy0wrGNa_9yo.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/Rg5nl35n32ICCgf0iWiZrpEsdZnmqX8uIE9zBWzRVVo.apk';
 
   if (!isOpen) return null;
 
