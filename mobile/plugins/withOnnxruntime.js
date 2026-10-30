@@ -47,3 +47,4 @@ const withOnnxruntime = (config) => {
 };
 
 module.exports = createRunOncePlugin(withOnnxruntime, 'withOnnxruntime', '1.0.0');
+
