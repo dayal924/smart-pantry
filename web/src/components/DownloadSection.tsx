@@ -5,7 +5,7 @@ import confetti from 'canvas-confetti';
 
 export const DownloadSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/_VgDhd-EtyX8_ybqgDsq0By9BgOC14tRoqQwyia5Ssw.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/uxMgCB7yRYeAN1tKIMmUMbSkQiMtl27LcBWY-OYJLCw.apk';
 
   const triggerDownload = () => {
     confetti({
