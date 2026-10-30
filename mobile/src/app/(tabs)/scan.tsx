@@ -33,6 +33,14 @@ export default function ScanTab() {
   const net = useNetInfo();
   const offline = net.isConnected === false;
 
+  React.useEffect(() => {
+    if (model.status === 'idle') {
+      model.load(useSettings.getState().accel).catch((err) => {
+        console.warn('Scan tab model load error:', err);
+      });
+    }
+  }, [model.status]);
+
   const topSafe =
     Math.max(insets.top, Platform.OS === 'android' ? (RNStatusBar.currentHeight ?? 24) : 20) + 8;
 
