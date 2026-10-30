@@ -17,6 +17,18 @@ GROQ_FALLBACK_MODELS = [
     "openai/gpt-oss-20b",
 ]
 
+GEMINI_FALLBACK_MODELS = [
+    "gemini-3.8-flash",
+    "gemini-2.5-flash",
+    "gemini-1.5-flash",
+]
+
+OPENROUTER_FALLBACK_MODELS = [
+    "dots-studio/dots-3-note-preview:free",
+    "nvidia/nemotron-3.5-lightning:free",
+    "liquid/lfm-2.5-2.6b:free",
+]
+
 SYSTEM = (
     "You are Pantry Copilot, a friendly zero-waste kitchen assistant. The user's live pantry is below. "
     "Prefer suggesting dishes that use items they already have, and prioritise items marked 'use now' or 'use soon'. "
@@ -66,7 +78,15 @@ async def _openai_compat(url: str, key: str, model: str, system: str, history: l
             },
         )
         r.raise_for_status()
-        return r.json()["choices"][0]["message"]["content"].strip()
+        data = r.json()
+        choices = data.get("choices", [])
+        if not choices:
+            raise ValueError(f"No choices returned from {model}: {data}")
+        msg_obj = choices[0].get("message", {})
+        content = msg_obj.get("content") or msg_obj.get("reasoning") or ""
+        if not content.strip():
+            raise ValueError(f"Empty content returned from {model}")
+        return content.strip()
 
 
 async def _gemini(system: str, history: list[dict], msg: str) -> str:
@@ -310,12 +330,37 @@ async def chat(message: str, history: list[dict], lines: list[dict]) -> dict:
                         log.warning("Groq model %s failed (%s), trying backup Groq model...", gm, ge)
 
             if p == "gemini" and s.gemini_api_key:
-                reply = await _gemini(system, hist, message)
-                return {"reply": reply, "provider": "gemini"}
+                gemini_models = [s.gemini_model] + [m for m in GEMINI_FALLBACK_MODELS if m != s.gemini_model]
+                for gmm in gemini_models:
+                    try:
+                        reply = await _openai_compat(
+                            "https://generativelanguage.googleapis.com/v1beta/openai/chat/completions",
+                            s.gemini_api_key,
+                            gmm,
+                            system,
+                            hist,
+                            message,
+                        )
+                        return {"reply": reply, "provider": f"gemini ({gmm})"}
+                    except Exception as gme:
+                        log.warning("Gemini model %s failed (%s), trying backup Gemini model...", gmm, gme)
 
             if p == "openrouter" and s.openrouter_api_key:
-                reply = await _openrouter(system, hist, message)
-                return {"reply": reply, "provider": "openrouter"}
+                or_models = [s.openrouter_model] + [m for m in OPENROUTER_FALLBACK_MODELS if m != s.openrouter_model]
+                for orm in or_models:
+                    try:
+                        reply = await _openai_compat(
+                            "https://openrouter.ai/api/v1/chat/completions",
+                            s.openrouter_api_key,
+                            orm,
+                            system,
+                            hist,
+                            message,
+                            extra_headers={"HTTP-Referer": "https://smartpantry.com", "X-Title": "Smart Pantry"},
+                        )
+                        return {"reply": reply, "provider": f"openrouter ({orm})"}
+                    except Exception as ore:
+                        log.warning("OpenRouter model %s failed (%s), trying backup OpenRouter model...", orm, ore)
 
             if p == "anthropic" and s.anthropic_api_key:
                 reply = await _anthropic(system, hist, message)

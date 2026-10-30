@@ -520,3 +520,4 @@ export function calculatePantryNutrition(
     unlockedSuperpowers: superpowers,
   };
 }
+
