@@ -70,7 +70,7 @@ def _iou(a, b) -> float:
     return inter / union if union > 0 else 0.0
 
 
-def decode_yolov8(out: np.ndarray, nc: int, lb: Letterbox, conf: float = 0.35, iou: float = 0.45,
+def decode_yolov8(out: np.ndarray, nc: int, lb: Letterbox, conf: float = 0.25, iou: float = 0.70,
                   agnostic_iou: float = 0.85, max_det: int = 100, top_alt: int = 3) -> list[dict]:
     """out: [1, 4+nc, N] (Ultralytics ONNX) or [1, N, 4+nc]. Scores are already sigmoid'ed. Returns normalised boxes."""
     a = np.asarray(out, dtype=np.float64)

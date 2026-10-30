@@ -1,10 +1,11 @@
 import { Ionicons } from '@expo/vector-icons';
 import { useRouter } from 'expo-router';
-import React, { useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
   FlatList,
+  Keyboard,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -50,7 +51,26 @@ export default function Copilot() {
   ]);
   const [text, setText] = useState('');
   const [busy, setBusy] = useState(false);
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false);
   const list = useRef<FlatList>(null);
+
+  useEffect(() => {
+    const showSub = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillShow' : 'keyboardDidShow',
+      () => {
+        setIsKeyboardOpen(true);
+        setTimeout(() => list.current?.scrollToEnd({ animated: true }), 120);
+      }
+    );
+    const hideSub = Keyboard.addListener(
+      Platform.OS === 'ios' ? 'keyboardWillHide' : 'keyboardDidHide',
+      () => setIsKeyboardOpen(false)
+    );
+    return () => {
+      showSub.remove();
+      hideSub.remove();
+    };
+  }, []);
 
   const send = async (q: string) => {
     if (!q.trim() || busy) return;
@@ -159,7 +179,7 @@ export default function Copilot() {
 
       <KeyboardAvoidingView
         style={{ flex: 1 }}
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         keyboardVerticalOffset={Platform.OS === 'ios' ? 90 : 0}
       >
         <FlatList
@@ -168,6 +188,8 @@ export default function Copilot() {
           keyExtractor={(_, i) => String(i)}
           contentContainerStyle={styles.chatList}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
           renderItem={({ item }) => {
             const isUser = item.role === 'user';
             const parsedRecipe = !isUser ? parseRecipeFromText(item.content) : null;
@@ -266,18 +288,20 @@ export default function Copilot() {
           }
         />
 
-        {/* Quick prompt suggestions carousel */}
-        <View style={styles.quickWrap}>
-          <ScrollView
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            contentContainerStyle={styles.quickScroll}
-          >
-            {QUICK.map((q) => (
-              <Chip key={q} label={q} onPress={() => send(q)} />
-            ))}
-          </ScrollView>
-        </View>
+        {/* Quick prompt suggestions carousel (shown when keyboard is closed) */}
+        {!isKeyboardOpen && (
+          <View style={styles.quickWrap}>
+            <ScrollView
+              horizontal
+              showsHorizontalScrollIndicator={false}
+              contentContainerStyle={styles.quickScroll}
+            >
+              {QUICK.map((q) => (
+                <Chip key={q} label={q} onPress={() => send(q)} />
+              ))}
+            </ScrollView>
+          </View>
+        )}
 
         {/* Bottom chat input */}
         <View style={styles.inputBar}>
@@ -288,6 +312,9 @@ export default function Copilot() {
             placeholderTextColor="#9AA597"
             onSubmitEditing={() => send(text)}
             returnKeyType="send"
+            onFocus={() => {
+              setTimeout(() => list.current?.scrollToEnd({ animated: true }), 150);
+            }}
             style={styles.textInput}
           />
           <Pressable

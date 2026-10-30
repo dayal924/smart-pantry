@@ -250,7 +250,7 @@ export default function Review() {
         ) : (
           <View style={styles.hintBox}>
             <Muted style={{ textAlign: 'center' }}>
-              💡 Tap any box above to edit name or remove. Adjust storage location below.
+              💡 Tap any box above to edit name or remove · Use + / - below to adjust count for touching items
             </Muted>
           </View>
         )}

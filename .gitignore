@@ -35,3 +35,4 @@ yolo_training_package/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+*.apk

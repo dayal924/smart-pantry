@@ -10,7 +10,7 @@ export interface Letterbox {
   newW: number; newH: number;  // decoded content size inside the square
 }
 export interface DecodeOptions { conf: number; iou: number; agnosticIou: number; maxDet: number; topAlt: number }
-export const DEFAULT_DECODE: DecodeOptions = { conf: 0.35, iou: 0.45, agnosticIou: 0.85, maxDet: 100, topAlt: 3 };
+export const DEFAULT_DECODE: DecodeOptions = { conf: 0.25, iou: 0.70, agnosticIou: 0.85, maxDet: 100, topAlt: 3 };
 
 export interface RawDetection {
   classId: number;
