@@ -15,6 +15,7 @@ import {
   View,
 } from 'react-native';
 import { Btn, Card, Chip, Muted, Screen, ScreenHeader } from '../../components/ui';
+import { MarkdownMessage } from '../../components/MarkdownMessage';
 import { parseRecipeFromText } from '../../domain/recipeMatch';
 import { daysLeft } from '../../domain/shelfLife';
 import { api } from '../../services/api';
@@ -190,21 +191,14 @@ export default function Copilot() {
                     <Text style={{ fontSize: 13 }}>🥑</Text>
                   </View>
                 )}
-                <View style={{ maxWidth: '84%', gap: 6 }}>
+                <View style={{ maxWidth: '86%', gap: 6 }}>
                   <View
                     style={[
                       styles.msgBubble,
                       isUser ? styles.userBubble : styles.assistantBubble,
                     ]}
                   >
-                    <Text
-                      style={[
-                        styles.msgText,
-                        isUser ? styles.userText : styles.assistantText,
-                      ]}
-                    >
-                      {item.content}
-                    </Text>
+                    <MarkdownMessage content={item.content} isUser={isUser} />
                   </View>
 
                   {/* Recipe Card Inline with Add to My Recipes */}
@@ -341,7 +335,6 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   msgBubble: {
-    maxWidth: '82%',
     paddingHorizontal: 15,
     paddingVertical: 11,
     borderRadius: 18,
