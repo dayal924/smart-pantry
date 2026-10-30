@@ -152,7 +152,7 @@ export default function Review() {
   return (
     <Screen edges={['top', 'bottom', 'left', 'right']}>
       <ScreenHeader
-        title="Review & Storage Guide"
+        title="Review & Storage"
         subtitle="Verify items & check optimal storage"
         onBack={() => {
           useScan.getState().setResult(null);

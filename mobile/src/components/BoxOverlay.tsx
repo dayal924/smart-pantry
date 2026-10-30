@@ -51,8 +51,11 @@ export function BoxOverlay({
                 const label = `${d.emoji} ${d.label} ${Math.round(d.score * 100)}%${
                   low ? ' ⚠️' : ''
                 }`;
-                const lw = Math.min(label.length * 6.8 + 12, Math.max(bw, 96));
-                const labelY = Math.max(0, y - 20);
+                const lw = Math.min(label.length * 6.8 + 14, Math.max(bw, 96));
+                // Clamp badge horizontally so it never clips past left or right edges
+                const labelX = Math.max(2, Math.min(x, Math.max(2, w - lw - 2)));
+                // If box is near the top edge, tuck badge neatly inside the box to prevent cut-off
+                const labelY = y < 22 ? Math.min(y + 2, Math.max(0, h - 22)) : Math.max(2, y - 22);
 
                 return (
                   <G key={d.id} onPress={() => onSelect(sel ? null : d.id)}>
@@ -68,7 +71,7 @@ export function BoxOverlay({
                       rx={4}
                     />
                     <Rect
-                      x={x}
+                      x={labelX}
                       y={labelY}
                       width={lw}
                       height={20}
@@ -76,7 +79,7 @@ export function BoxOverlay({
                       rx={4}
                     />
                     <SvgText
-                      x={x + 5}
+                      x={labelX + 5}
                       y={labelY + 14}
                       fontSize={11}
                       fontWeight="bold"
