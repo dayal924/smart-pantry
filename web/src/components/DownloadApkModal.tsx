@@ -10,7 +10,7 @@ interface DownloadApkModalProps {
 
 export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/ezaLe581JGhJlVrushqx-dz7v8qR0vO68sVdd40ziuI.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/8fL1oZgfQn2tFJnnaIpJj4o9Gcpg8DmtEFtRj1H-IZM.apk';
 
   if (!isOpen) return null;
 
@@ -24,7 +24,7 @@ export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onCl
 
     const link = document.createElement('a');
     link.href = apkDownloadPath;
-    link.download = 'smart-pantry-v1.0.3.apk';
+    link.download = 'smart-pantry-v1.0.4.apk';
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
