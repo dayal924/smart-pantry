@@ -15,7 +15,25 @@ function toDetections(raw: RawDetection[], names: string[]): Detection[] {
   const info = (id: number) => { const k = normalizeKey(names[id] ?? `class_${id}`); return { k, c: getCatalogItem(k) }; };
   return raw.map((r) => {
     const { k, c } = info(r.classId);
-    const estWeight = r.estimatedWeightG ?? c.grams_per_item;
+    const baseG = c.grams_per_item || 150;
+    const isCluster = ['grape', 'cherry', 'peas', 'chilli', 'strawberry'].includes(k);
+    const isGiant = ['watermelon', 'cabbage', 'cauliflower', 'pineapple', 'bottle_gourd'].includes(k);
+
+    let estWeight = r.estimatedWeightG ?? baseG;
+    if (isCluster) {
+      estWeight = Math.min(Math.max(Math.round(estWeight), Math.round(baseG * 0.4)), Math.round(baseG * 3.5));
+    } else if (isGiant) {
+      estWeight = Math.min(Math.max(Math.round(estWeight), Math.round(baseG * 0.6)), Math.round(baseG * 2.2));
+    } else {
+      const minG = Math.round(baseG * 0.65);
+      const maxG = Math.round(baseG * 1.45);
+      if (estWeight > baseG * 1.5) {
+        estWeight = Math.round(baseG * (1.15 + Math.min(0.30, (r.bbox[2] * r.bbox[3]) * 0.45)));
+      } else {
+        estWeight = Math.min(Math.max(Math.round(estWeight), minG), maxG);
+      }
+    }
+
     const factor = estWeight / 100.0;
     const n = c.nutrition_per_100g;
     const nutrition = n

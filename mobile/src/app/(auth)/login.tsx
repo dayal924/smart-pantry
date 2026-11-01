@@ -1,9 +1,10 @@
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
   KeyboardAvoidingView,
   Platform,
+  Pressable,
   ScrollView,
   StyleSheet,
   Text,
@@ -18,9 +19,11 @@ import { C, R } from '../../theme';
 export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [err, setErr] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
   const [focusedField, setFocusedField] = useState<'email' | 'password' | null>(null);
+  const scrollRef = useRef<ScrollView>(null);
 
   const submit = async () => {
     setBusy(true);
@@ -42,12 +45,18 @@ export default function Login() {
   return (
     <Screen edges={['top', 'bottom', 'left', 'right']}>
       <KeyboardAvoidingView
-        behavior={Platform.OS === 'ios' ? 'padding' : undefined}
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 0 : 20}
         style={{ flex: 1 }}
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContent}
+          ref={scrollRef}
+          contentContainerStyle={[
+            styles.scrollContent,
+            focusedField != null && { paddingBottom: 140 },
+          ]}
           keyboardShouldPersistTaps="handled"
+          keyboardDismissMode="on-drag"
           showsVerticalScrollIndicator={false}
         >
           {/* Brand header with living AI Freshness Hero */}
@@ -82,11 +91,28 @@ export default function Login() {
               label="Password"
               value={password}
               onChangeText={setPassword}
-              secureTextEntry
+              secureTextEntry={!showPassword}
               autoComplete="password"
               placeholder="••••••••"
-              onFocus={() => setFocusedField('password')}
+              onFocus={() => {
+                setFocusedField('password');
+                setTimeout(() => scrollRef.current?.scrollToEnd({ animated: true }), 120);
+              }}
               onBlur={() => setFocusedField((cur) => (cur === 'password' ? null : cur))}
+              rightAccessory={
+                <Pressable
+                  onPress={() => setShowPassword((v) => !v)}
+                  hitSlop={{ top: 12, bottom: 12, left: 12, right: 12 }}
+                  accessibilityLabel={showPassword ? 'Hide password' : 'Show password'}
+                  accessibilityRole="button"
+                >
+                  <Ionicons
+                    name={showPassword ? 'eye-off-outline' : 'eye-outline'}
+                    size={22}
+                    color="#6C7A68"
+                  />
+                </Pressable>
+              }
             />
 
             {err && (
@@ -121,10 +147,10 @@ export default function Login() {
 const styles = StyleSheet.create({
   scrollContent: {
     paddingHorizontal: 20,
-    paddingTop: 16,
-    paddingBottom: 32,
+    paddingTop: 24,
+    paddingBottom: 40,
     flexGrow: 1,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     gap: 16,
   },
   brandContainer: {

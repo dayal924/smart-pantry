@@ -33,6 +33,16 @@ export const PRODUCE_DENSITIES: Record<string, number> = {
   radish: 0.98, strawberry: 0.92, tomato: 0.95, turnip: 0.96, watermelon: 0.96,
 };
 
+export const PRODUCE_BASE_GRAMS: Record<string, number> = {
+  apple: 180, banana: 120, beetroot: 80, bitter_gourd: 100, bottle_gourd: 500,
+  cabbage: 900, capsicum: 150, carrot: 70, cauliflower: 600, cherry: 8,
+  chilli: 10, coconut: 400, cucumber: 300, eggplant: 300, ginger: 25,
+  grape: 150, green_orange: 150, kiwi: 75, maize: 150, mango: 200,
+  melon: 900, okra: 12, onion: 110, orange: 130, peach: 150,
+  pear: 180, peas: 60, pineapple: 900, pomegranate: 170, potato: 170,
+  radish: 100, strawberry: 15, tomato: 120, turnip: 100, watermelon: 4000,
+};
+
 type Box = [number, number, number, number];
 function iouOf(a: Box, b: Box): number {
   const ix = Math.max(0, Math.min(a[2], b[2]) - Math.max(a[0], b[0]));
@@ -185,12 +195,12 @@ export function decodeYolov8(
       ? classKeys[f.cls].toLowerCase().replace(/[^a-z0-9]+/g, '_').replace(/^_+|_+$/g, '')
       : 'apple';
     const density = PRODUCE_DENSITIES[cKey] ?? 0.95;
+    const baseRefG = PRODUCE_BASE_GRAMS[cKey] ?? 150;
 
-    // Approximate physical dimensions assuming standard kitchen scanning distance
-    // Typical camera FOV spans ~35-45cm width at table height
-    const assumedFovWidthCm = 38.0;
+    // Approximate physical dimensions assuming standard scanning distance
+    const assumedFovWidthCm = 35.0;
     const realW_cm = normW * assumedFovWidthCm;
-    const realH_cm = normH * assumedFovWidthCm * (lb.origH / lb.origW);
+    const realH_cm = normH * assumedFovWidthCm * (lb.origH / Math.max(1, lb.origW));
 
     const majorAxis = Math.max(realW_cm, realH_cm) / 2.0;
     const minorAxis = Math.min(realW_cm, realH_cm) / 2.0;
@@ -205,7 +215,29 @@ export function decodeYolov8(
 
     // Adjust volume by mask fill factor (default 0.70 for spheroids, 0.45 for elongated produce)
     const fillFactor = maskPixelCount > 0 ? Math.min(0.85, Math.max(0.30, maskPixelCount / Math.max(1, (normW * normH * 160 * 160)))) : 0.65;
-    const estimatedWeightG = Math.max(10, Math.round(volumeCm3 * density * fillFactor));
+    const rawWeight = volumeCm3 * density * fillFactor;
+
+    const isCluster = ['grape', 'cherry', 'peas', 'chilli', 'strawberry'].includes(cKey);
+    const isGiant = ['watermelon', 'cabbage', 'cauliflower', 'pineapple', 'bottle_gourd'].includes(cKey);
+
+    let estimatedWeightG: number;
+    if (isCluster) {
+      estimatedWeightG = Math.max(10, Math.min(Math.round(baseRefG * 3.5), Math.round(rawWeight)));
+    } else if (isGiant) {
+      estimatedWeightG = Math.max(200, Math.min(Math.round(baseRefG * 2.2), Math.round(rawWeight)));
+    } else {
+      // Discrete standard produce: Apple, Cucumber, Banana, Tomato, Orange, Potato, Pear, etc.
+      // Physical biological single-item range is [0.65x, 1.45x] of standard baseline
+      const minG = Math.round(baseRefG * 0.65);
+      const maxG = Math.round(baseRefG * 1.45);
+      if (rawWeight > baseRefG * 1.5) {
+        // Close-up photo: item occupies large screen area -> scale gently into upper tier of biological weight
+        const occupancyBonus = Math.min(0.30, (normW * normH) * 0.45);
+        estimatedWeightG = Math.round(baseRefG * (1.15 + occupancyBonus));
+      } else {
+        estimatedWeightG = Math.min(Math.max(Math.round(rawWeight), minG), maxG);
+      }
+    }
 
     out.push({
       classId: f.cls,

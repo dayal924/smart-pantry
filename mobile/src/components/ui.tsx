@@ -249,24 +249,54 @@ export const Chip = ({
   </Pressable>
 );
 
-export const Field = ({ label, ...p }: TextInputProps & { label: string }) => (
-  <View style={{ gap: 6 }}>
+export const Field = ({
+  label,
+  rightAccessory,
+  containerStyle,
+  style,
+  ...p
+}: TextInputProps & {
+  label: string;
+  rightAccessory?: React.ReactNode;
+  containerStyle?: StyleProp<ViewStyle>;
+}) => (
+  <View style={[{ gap: 6 }, containerStyle]}>
     <Text style={{ fontWeight: '700', color: C.text, fontSize: 14 }}>{label}</Text>
-    <TextInput
-      placeholderTextColor="#9AA597"
-      autoCapitalize="none"
-      {...p}
-      style={{
-        borderWidth: 1.2,
-        borderColor: C.border,
-        backgroundColor: '#FFFFFF',
-        borderRadius: R.md,
-        paddingHorizontal: 14,
-        paddingVertical: 12,
-        fontSize: 16,
-        color: C.text,
-      }}
-    />
+    <View style={{ position: 'relative', justifyContent: 'center' }}>
+      <TextInput
+        placeholderTextColor="#9AA597"
+        autoCapitalize="none"
+        {...p}
+        style={[
+          {
+            borderWidth: 1.2,
+            borderColor: C.border,
+            backgroundColor: '#FFFFFF',
+            borderRadius: R.md,
+            paddingHorizontal: 14,
+            paddingVertical: 12,
+            paddingRight: rightAccessory ? 48 : 14,
+            fontSize: 16,
+            color: C.text,
+          },
+          style,
+        ]}
+      />
+      {rightAccessory && (
+        <View
+          style={{
+            position: 'absolute',
+            right: 12,
+            top: 0,
+            bottom: 0,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {rightAccessory}
+        </View>
+      )}
+    </View>
   </View>
 );
 
