@@ -8,6 +8,7 @@ mobile/dist/
 mobile/android/
 mobile/ios/
 yolo_training_package/
+DL_Training/
 .pytest_cache/
 __pycache__/
 .DS_Store
