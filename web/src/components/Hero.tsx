@@ -55,7 +55,7 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownloadModal, onExploreFeatur
             <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-100 dark:bg-emerald-950/60 border border-emerald-300 dark:border-emerald-500/30 text-xs text-emerald-800 dark:text-emerald-300 shadow-sm transition-colors">
               <span className="flex h-2 w-2 rounded-full bg-emerald-600 dark:bg-hud-green" />
               <span className="font-semibold tracking-wide uppercase font-mono text-[11px]">
-                Bundle & Run YOLOv8m On-Device
+                Bundle & Run YOLOv8m-Seg On-Device
               </span>
               <span className="text-slate-400 dark:text-slate-500">|</span>
               <span className="text-slate-700 dark:text-slate-300 font-medium">FastAPI + MongoDB</span>
@@ -68,8 +68,8 @@ export const Hero: React.FC<HeroProps> = ({ onOpenDownloadModal, onExploreFeatur
 
             {/* Body */}
             <p className="text-base sm:text-lg text-slate-600 dark:text-slate-300 max-w-2xl mx-auto lg:mx-0 leading-relaxed font-normal transition-colors">
-              <strong className="text-slate-900 dark:text-white">Detection never touches the cloud.</strong> Online or offline, the bundled 
-              <span className="text-pantry-700 dark:text-white font-semibold"> YOLOv8m ONNX model</span> runs locally inside your phone's native runtime. Instant produce recognition, automated shelf-life calculation, and intelligent recipe recommendations.
+              <strong className="text-slate-900 dark:text-white">Detection & segmentation never touch the cloud.</strong> Online or offline, the bundled 
+              <span className="text-pantry-700 dark:text-white font-semibold"> YOLOv8m-Seg ONNX model</span> runs locally inside your phone's native runtime with 3D volumetric gram weight estimation, automated shelf-life calculation, and intelligent recipe recommendations.
             </p>
 
             {/* Micro value badges */}

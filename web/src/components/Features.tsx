@@ -5,11 +5,11 @@ export const Features: React.FC = () => {
   const features = [
     {
       icon: Cpu,
-      title: 'On-Device YOLOv8m Vision',
-      badge: 'Zero Cloud Overhead',
-      desc: 'Detection runs 100% locally on your smartphone using native ONNX Runtime. Your grocery photos never leave your device, ensuring total privacy, zero bandwidth use, and sub-100ms inference.',
+      title: 'YOLOv8m-Seg & Volumetric Weight',
+      badge: 'Instance Segmentation',
+      desc: 'Segmentation and detection run 100% locally on your smartphone using native ONNX Runtime with 32 prototype masks. Reconstructs 3D physical produce volume and botanical density into live portion grams and calories.',
       color: 'from-emerald-500/20 to-hud-green/10 text-emerald-700 dark:text-hud-green border-emerald-500/30',
-      pill: 'YOLOv8m · 35 Classes',
+      pill: 'YOLOv8m-Seg · 35 Classes',
     },
     {
       icon: Clock,

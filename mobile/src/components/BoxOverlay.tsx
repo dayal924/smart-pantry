@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Dimensions, Image, LayoutChangeEvent, StyleSheet, View } from 'react-native';
-import Svg, { G, Rect, Text as SvgText } from 'react-native-svg';
+import Svg, { G, Polygon, Rect, Text as SvgText } from 'react-native-svg';
 import type { Detection } from '../ml/types';
 import { C, R } from '../theme';
 
@@ -48,28 +48,41 @@ export function BoxOverlay({
                 const y = d.bbox.y * h;
                 const bw = d.bbox.w * w;
                 const bh = d.bbox.h * h;
-                const label = `${d.emoji} ${d.label} ${Math.round(d.score * 100)}%${
+                const weightStr = d.estimatedWeightG ? ` ~${d.estimatedWeightG}g` : '';
+                const label = `${d.emoji} ${d.label}${weightStr} ${Math.round(d.score * 100)}%${
                   low ? ' ⚠️' : ''
                 }`;
-                const lw = Math.min(label.length * 6.8 + 14, Math.max(bw, 96));
+                const lw = Math.min(label.length * 6.8 + 14, Math.max(bw, 110));
                 // Clamp badge horizontally so it never clips past left or right edges
                 const labelX = Math.max(2, Math.min(x, Math.max(2, w - lw - 2)));
                 // If box is near the top edge, tuck badge neatly inside the box to prevent cut-off
                 const labelY = y < 22 ? Math.min(y + 2, Math.max(0, h - 22)) : Math.max(2, y - 22);
 
+                const hasPoly = d.polygon && d.polygon.length > 2;
+
                 return (
                   <G key={d.id} onPress={() => onSelect(sel ? null : d.id)}>
-                    <Rect
-                      x={x}
-                      y={y}
-                      width={bw}
-                      height={bh}
-                      stroke={col}
-                      strokeWidth={sel ? 3.5 : 2.2}
-                      fill={col}
-                      fillOpacity={sel ? 0.22 : 0.08}
-                      rx={4}
-                    />
+                    {hasPoly ? (
+                      <Polygon
+                        points={d.polygon!.map((p) => `${p.x * w},${p.y * h}`).join(' ')}
+                        stroke={col}
+                        strokeWidth={sel ? 3.5 : 2.2}
+                        fill={col}
+                        fillOpacity={sel ? 0.35 : 0.20}
+                      />
+                    ) : (
+                      <Rect
+                        x={x}
+                        y={y}
+                        width={bw}
+                        height={bh}
+                        stroke={col}
+                        strokeWidth={sel ? 3.5 : 2.2}
+                        fill={col}
+                        fillOpacity={sel ? 0.22 : 0.08}
+                        rx={4}
+                      />
+                    )}
                     <Rect
                       x={labelX}
                       y={labelY}
@@ -85,7 +98,7 @@ export function BoxOverlay({
                       fontWeight="bold"
                       fill="#FFFFFF"
                     >
-                      {label.slice(0, 30)}
+                      {label.slice(0, 36)}
                     </SvgText>
                   </G>
                 );

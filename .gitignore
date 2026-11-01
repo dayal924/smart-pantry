@@ -26,10 +26,15 @@ __pycache__/
 # Large ML models & dataset packages (>100MB / not needed in git)
 *.pt
 *.onnx
+*.zip
 mobile/assets/model/detector.onnx
 backend/storage/models/*/
 backend/storage/models/*.onnx
 yolo_training_package/
+yolo_training_package
+DL_Training/Fruits and Vegi*/
+DL_Training/*.zip
+DL_Training/yolo_runs/
 
 # Logs
 npm-debug.log*

@@ -28,11 +28,20 @@ def main():
     if "names" not in meta:
         sys.exit("❌ This ONNX has no 'names' metadata (not an Ultralytics export?).")
     d = ast.literal_eval(meta["names"]); names = [d[i] for i in sorted(d)]
-    inp, out = sess.get_inputs()[0], sess.get_outputs()[0]
+    inp = sess.get_inputs()[0]
+    outs = sess.get_outputs()
+    out = outs[0]
     print(f"input  {inp.name} {inp.shape}\noutput {out.name} {out.shape}")
     o = out.shape
-    if not (len(o) == 3 and (o[1] == len(names) + 4 or o[2] == len(names) + 4)):
-        sys.exit(f"❌ Output {o} doesn't look like YOLOv8 detect with {len(names)} classes.")
+    is_seg = len(outs) > 1 or (len(o) == 3 and (o[1] == len(names) + 4 + 32 or o[2] == len(names) + 4 + 32))
+    valid_shape = len(o) == 3 and (
+        o[1] == len(names) + 4 or o[2] == len(names) + 4 or
+        o[1] == len(names) + 4 + 32 or o[2] == len(names) + 4 + 32
+    )
+    if not valid_shape:
+        sys.exit(f"❌ Output {o} doesn't look like YOLOv8 detect or segment with {len(names)} classes.")
+    if is_seg and len(outs) > 1:
+        print(f"proto  {outs[1].name} {outs[1].shape} (Segmentation Mask Prototypes detected)")
     imgsz = 640
     try:
         imgsz = ast.literal_eval(meta.get("imgsz", "[640, 640]"))[0]
@@ -47,7 +56,17 @@ def main():
             print("⚠️  Class list/order differs from the labels.json already in the app - the ONNX's own list wins.")
     cat = json.loads((ROOT / "shared/produce_catalog.json").read_text())
     keys = [norm(n, cat["aliases"]) for n in names]
-    (dest / "labels.json").write_text(json.dumps({"version": a.version, "input_size": imgsz, "names": names, "keys": keys}, indent=1))
+    payload = {
+        "version": a.version,
+        "input_size": imgsz,
+        "names": names,
+        "keys": keys
+    }
+    if is_seg:
+        payload["task"] = "segmentation"
+        payload["segmentation"] = True
+        payload["num_masks"] = 32
+    (dest / "labels.json").write_text(json.dumps(payload, indent=1))
     shutil.copyfile(src, dest / "detector.onnx")
     mb = src.stat().st_size / 1e6
     print(f"✅ {len(names)} classes -> mobile/assets/model/labels.json | detector.onnx {mb:.0f} MB")

@@ -75,12 +75,13 @@ def decode_yolov8(out: np.ndarray, nc: int, lb: Letterbox, conf: float = 0.25, i
     """out: [1, 4+nc, N] (Ultralytics ONNX) or [1, N, 4+nc]. Scores are already sigmoid'ed. Returns normalised boxes."""
     a = np.asarray(out, dtype=np.float64)
     a = a[0] if a.ndim == 3 else a
-    C = nc + 4
+    is_seg = (a.shape[0] == nc + 4 + 32 or a.shape[1] == nc + 4 + 32)
+    C = (nc + 4 + 32) if is_seg else (nc + 4)
     if a.shape[0] == C:
         a = a.T
     elif a.shape[1] != C:
         raise ValueError(f"Unexpected output shape {out.shape} for nc={nc}")
-    scores_all = a[:, 4:]
+    scores_all = a[:, 4:4+nc]
     best = scores_all.max(axis=1)
     cls = scores_all.argmax(axis=1)  # first max wins, same as TS loop
     idx = np.where(best >= conf)[0]

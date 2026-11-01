@@ -1,5 +1,8 @@
 {
- "version": "v1-50ep",
+ "version": "v2-seg-35ep",
+ "task": "segmentation",
+ "segmentation": true,
+ "num_masks": 32,
  "input_size": 640,
  "names": [
   "Apple",

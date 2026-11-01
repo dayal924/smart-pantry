@@ -82,8 +82,20 @@ def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--onnx", required=True); ap.add_argument("--images", required=True)
     ap.add_argument("--conf", type=float, default=0.35); ap.add_argument("--iou", type=float, default=0.45)
     a = ap.parse_args()
-    sess = ort.InferenceSession(a.onnx, providers=["CPUExecutionProvider"]); nc = sess.get_outputs()[0].shape[1] - 4
-    files = sorted(p for p in pathlib.Path(a.images).glob("*") if p.suffix.lower() in (".jpg", ".jpeg", ".png"))
+    sess = ort.InferenceSession(a.onnx, providers=["CPUExecutionProvider"])
+    meta = sess.get_modelmeta().custom_metadata_map or {}
+    if "names" in meta:
+        import ast
+        nc = len(ast.literal_eval(meta["names"]))
+    else:
+        o_c = sess.get_outputs()[0].shape[1]
+        nc = o_c - 4 - 32 if (len(sess.get_outputs()) > 1 or o_c > 45) else o_c - 4
+    p_img = pathlib.Path(a.images)
+    files = sorted(p for p in p_img.glob("*") if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png"))
+    if not files and p_img.is_dir():
+        files = sorted(p for p in p_img.rglob("*") if p.is_file() and p.suffix.lower() in (".jpg", ".jpeg", ".png"))
+    if not files:
+        sys.exit(f"❌ No image files found in {a.images}")
     variants = ["ref_square", "app_2stage", "app_alias", "stretch"]
     stats = {v: {"n_eq": 0, "ious": [], "cls": [], "t": []} for v in variants}; refs = 0
     print(f"{'image':<26}{'ref_rect':>9}" + "".join(f"{v:>13}" for v in variants) + "   (detections)")

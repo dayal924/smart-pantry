@@ -16,7 +16,17 @@ from app.services.detector import decode_yolov8
 ap = argparse.ArgumentParser(); ap.add_argument("--onnx", default=str(ROOT / "mobile/assets/model/detector.onnx"))
 ap.add_argument("--images", nargs="+", required=True); ap.add_argument("--min-match", type=float, default=0.9)
 a = ap.parse_args()
-sess = ort.InferenceSession(a.onnx, providers=["CPUExecutionProvider"]); nc = sess.get_outputs()[0].shape[1] - 4
+sess = ort.InferenceSession(a.onnx, providers=["CPUExecutionProvider"])
+meta = sess.get_modelmeta().custom_metadata_map or {}
+if "names" in meta:
+    import ast
+    d = ast.literal_eval(meta["names"])
+    nc = len(d)
+elif (ROOT / "mobile/assets/model/labels.json").exists():
+    nc = len(json.loads((ROOT / "mobile/assets/model/labels.json").read_text())["names"])
+else:
+    o_c = sess.get_outputs()[0].shape[1]
+    nc = o_c - 4 - 32 if len(sess.get_outputs()) > 1 else o_c - 4
 out = ROOT / "mobile/assets/selftest"; out.mkdir(parents=True, exist_ok=True)
 imgs = (a.images * 3)[:3]
 files = []

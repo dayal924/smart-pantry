@@ -23,20 +23,34 @@ export default function Review() {
   const [extra, setExtra] = useState<Record<string, number>>({});
 
   const groups = useMemo(() => {
-    const m = new Map<string, { key: string; count: number; best: number }>();
+    const m = new Map<string, { key: string; count: number; best: number; totalGrams: number }>();
     for (const d of dets) {
       if (!d.removed) {
-        const g = m.get(d.classKey) ?? { key: d.classKey, count: 0, best: 0 };
+        const itemWeight = d.estimatedWeightG ?? getCatalogItem(d.classKey).grams_per_item;
+        const g = m.get(d.classKey) ?? { key: d.classKey, count: 0, best: 0, totalGrams: 0 };
         g.count++;
         g.best = Math.max(g.best, d.score);
+        g.totalGrams += itemWeight;
         m.set(d.classKey, g);
       }
     }
     for (const k of Object.keys(extra)) {
-      if (!m.has(k)) m.set(k, { key: k, count: 0, best: 1 });
+      if (!m.has(k)) {
+        const defaultWeight = getCatalogItem(k).grams_per_item;
+        m.set(k, { key: k, count: 0, best: 1, totalGrams: defaultWeight });
+      }
     }
     return [...m.values()]
-      .map((g) => ({ ...g, qty: Math.max(0, g.count + (extra[g.key] ?? 0)) }))
+      .map((g) => {
+        const qty = Math.max(0, g.count + (extra[g.key] ?? 0));
+        const avgPerItem = g.count > 0 ? Math.round(g.totalGrams / g.count) : getCatalogItem(g.key).grams_per_item;
+        return {
+          ...g,
+          qty,
+          avgGrams: avgPerItem,
+          estimatedTotalGrams: qty * avgPerItem,
+        };
+      })
       .sort((a, b) => b.qty - a.qty);
   }, [dets, extra]);
 
@@ -215,6 +229,21 @@ export default function Review() {
               </View>
             </View>
 
+            <View style={{ flexDirection: 'row', alignItems: 'center', gap: 8, marginVertical: 4 }}>
+              <View style={{ backgroundColor: '#E8F5E9', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 }}>
+                <Text style={{ fontSize: 12, fontWeight: '700', color: '#2E7D32' }}>
+                  ⚖️ Est. Weight: ~{selected.estimatedWeightG ?? getCatalogItem(selected.classKey).grams_per_item}g
+                </Text>
+              </View>
+              {selected.nutrition?.kcal ? (
+                <View style={{ backgroundColor: '#FFF3E0', paddingHorizontal: 8, paddingVertical: 4, borderRadius: 6 }}>
+                  <Text style={{ fontSize: 12, fontWeight: '700', color: '#E65100' }}>
+                    ⚡ ~{selected.nutrition.kcal} kcal
+                  </Text>
+                </View>
+              ) : null}
+            </View>
+
             {selected.score < 0.5 && (
               <View style={styles.lowConfNotice}>
                 <Text style={{ color: C.warn, fontSize: 13, fontWeight: '700' }}>
@@ -284,6 +313,15 @@ export default function Review() {
                   <Text style={{ fontSize: 28 }}>{c.emoji}</Text>
                   <View style={{ flex: 1 }}>
                     <Text style={styles.groupName}>{c.display}</Text>
+                    <View style={{ flexDirection: 'row', alignItems: 'center', gap: 6, marginVertical: 2 }}>
+                      <Text style={{ fontSize: 11, color: C.text, fontWeight: '600' }}>
+                        ⚖️ ~{g.estimatedTotalGrams}g (~{g.avgGrams}g/ea)
+                      </Text>
+                      <Text style={{ fontSize: 11, color: C.muted }}>·</Text>
+                      <Text style={{ fontSize: 11, color: '#E65100', fontWeight: '600' }}>
+                        ⚡ ~{Math.round((c.nutrition_per_100g.kcal * g.estimatedTotalGrams) / 100)} kcal
+                      </Text>
+                    </View>
                     <View style={styles.recBadge}>
                       <Text style={styles.recBadgeText}>
                         ✨ Recommended: {isFridgeRec ? '❄️ Refrigerator' : '🏠 Room Temp'}

@@ -1,11 +1,14 @@
-# 🥑 Smart Pantry — on-device produce detection · React Native · FastAPI · MongoDB
+# 🥑 Smart Pantry — on-device produce segmentation & detection · React Native · FastAPI · MongoDB
 
-**Detection never touches the backend** — online or offline, the bundled YOLOv8m ONNX model runs on the phone.
+**Detection & segmentation never touch the backend** — online or offline, the bundled YOLOv8m-Seg ONNX model runs on the phone.
 The backend is used only *afterwards*: when you confirm a scan, the inventory is saved to MongoDB (queued locally if offline, synced when the network returns), plus auth, recipes, copilot, notifications, admin.
 
 ```
-PHONE ── camera/gallery → resize (aspect kept) → rect letterbox → ONNX Runtime (bundled detector.onnx) → NMS
-      → Review HUD (tap box to correct) → local pantry ─────── confirm ──▶ BACKEND: /inventory/sync → MongoDB
+PHONE ── camera/gallery → resize (aspect kept) → rect letterbox → ONNX Runtime (bundled detector.onnx)
+      → Dual-Head Decode (71 chans: box + cls + 32 mask coeffs; 32 prototypes @ 160x160)
+      → 3D Volumetric Weight & Caloric Nutrition Engine (V = 4/3 π a b c · ρ)
+      → Review HUD (interactive polygon overlays, portion weights, tap box to correct)
+      → local pantry ─────── confirm ──▶ BACKEND: /inventory/sync → MongoDB
 ```
 
 ## Setup (the model is already installed in this zip)
@@ -17,10 +20,18 @@ cd backend && cp .env.example .env && docker compose up --build      # http://lo
 cd mobile && cp .env.example .env     # EXPO_PUBLIC_API_URL = your PC LAN IP or HTTPS URL
 npm install && npx expo run:android   # or run:ios
 ```
-Retrained? `python ml/install_model.py --onnx new.onnx --version v2` rewrites `labels.json` + the bundled model from the ONNX's own metadata.
+Retrained? `python ml/install_model.py --onnx DL_Training/segmenter_50epochs.onnx --version v2-seg-35ep` rewrites `labels.json` + the bundled model from the ONNX's own metadata.
 
-## Your model (read from `detector_50epochs.onnx`)
-YOLOv8m · 35 classes (order identical to your notebook) · input `images [batch,3,h,w]` (dynamic) · output `output0 [batch,39,anchors]` (4 box + 35 class scores, **no NMS inside**, so the app does NMS) · opset 14 · 104 MB.
+## Deep Learning Training (`DL_Training/`)
+The project includes a complete production deep learning suite located in `DL_Training/`:
+- **`train_segmentation_colab.ipynb`**: 51-cell self-contained Google Colab notebook featuring Segment Anything 2 (SAM-2) auto-masking (19,955 bounding boxes converted to precise polygon segmentation masks), YOLOv8m-Seg training across 35 produce categories, 10 analytical validation curves, 3D volumetric gram-weight estimation, ONNX export with dynamic batching, and automated PyTorch↔ONNX numerical parity testing (< 0.0009 discrepancy).
+- **`Fruits and Vegi.v13-verison8.yolov8/`**: 35-class produce dataset (6,573 train images, 147 validation images).
+- **`segmenter_50epochs.onnx`** (110.4 MB) & **`segmenter_50epochs.pt`** (54.9 MB): Trained model checkpoints with 92.2% Mask mAP@50 and 92.0% Box mAP@50.
+- **`archive_train_detector_colab.ipynb`**: Original bounding-box-only notebook preserved for reference.
+
+## Your Model Architecture (`mobile/assets/model/detector.onnx`)
+YOLOv8m-Seg · 35 classes · input `images [batch,3,h,w]` (dynamic) · output `output0 [batch,71,anchors]` (4 box + 35 class scores + 32 mask coefficients) · output `output1 [batch,32,160,160]` (prototype masks) · opset 14 · 110.4 MB.
+- **3D Volumetric Engine**: Uses prototype mask matrix multiplication with mask coefficients to extract outer boundary polygon points, calculates 3D ellipsoidal spheroid volume, and multiplies by botanical specific gravity ($\rho \text{ in g/cm}^3$) to dynamically compute item weight in grams and calories.
 
 ## Why detection used to mismatch — and what is applied now
 Your notebook's "mobile" cell **stretched** photos to 640×640. Ultralytics `predict()` instead keeps the aspect ratio and pads with grey 114 only up to a multiple of 32. Measured on your ONNX: the stretch moves the input by **37 gray levels** on average, so 3/20 of your photos failed. The app now does exactly what Ultralytics does:

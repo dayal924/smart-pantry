@@ -100,9 +100,22 @@ class OnDeviceDetector {
       fillTensor(dec.data, dec.width, dec.height, 4, lb, this.tensorBuf);
       const t1 = now();
       const out = await this.session!.run({ [this.inputName]: new Tensor('float32', this.tensorBuf, [1, 3, lb.canvasH, lb.canvasW]) });
-      const o = out[this.outputName];
+      const detName = (this.outputName in out) ? this.outputName : this.session!.outputNames[0];
+      const o = out[detName];
+      if (!o) throw new Error(`Model inference failed: output tensor '${detName}' not found`);
+      const protoName = this.session!.outputNames.find((n) => n !== detName) ?? null;
+      const proto = protoName ? out[protoName] : null;
       const t2 = now();
-      const raw = decodeYolov8(o.data as Float32Array, o.dims as number[], this.names.length, lb, { conf, iou });
+      const raw = decodeYolov8(
+        o.data as Float32Array,
+        o.dims as number[],
+        this.names.length,
+        lb,
+        { conf, iou },
+        proto ? (proto.data as Float32Array) : null,
+        proto ? (proto.dims as number[]) : null,
+        this.names,
+      );
       const t3 = now();
       return { raw, timings: { prepare: Math.round(img.ms + (t1 - t0)), inference: Math.round(t2 - t1), postprocess: Math.round(t3 - t2) } };
     });

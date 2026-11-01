@@ -3,16 +3,17 @@ import { LABELS, getProduceByClass } from '../data/catalog';
 import { Search, Maximize2, CheckCircle2, TrendingUp, Award } from 'lucide-react';
 
 export const YoloMetrics: React.FC = () => {
-  const [activeTab, setActiveTab] = useState<'val_preds' | 'confusion' | 'curves' | 'classes'>('val_preds');
+  const [activeTab, setActiveTab] = useState<'val_preds' | 'confusion' | 'curves' | 'classes' | 'volumetric'>('val_preds');
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const [curveType, setCurveType] = useState<'mask' | 'box'>('mask');
   const [classSearch, setClassSearch] = useState('');
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [zoomModalImage, setZoomModalImage] = useState<string | null>(null);
 
   const valImages = [
-    { src: './yolo/val_batch0_pred.jpg', title: 'Validation Batch 0 — Real Predictions' },
-    { src: './yolo/val_batch1_pred.jpg', title: 'Validation Batch 1 — Multi-Class Groceries' },
-    { src: './yolo/val_batch2_pred.jpg', title: 'Validation Batch 2 — Produce Cluster Tests' },
+    { src: './yolo/val_batch0_pred.jpg', title: 'Validation Batch 0 — Real Segmentation Masks' },
+    { src: './yolo/val_batch1_pred.jpg', title: 'Validation Batch 1 — Multi-Class Produce Polygons' },
+    { src: './yolo/val_batch2_pred.jpg', title: 'Validation Batch 2 — Clustered Produce Segmentation' },
   ];
 
   // Filtered produce classes
@@ -30,49 +31,49 @@ export const YoloMetrics: React.FC = () => {
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/20 text-xs font-mono font-medium">
             <Award className="w-3.5 h-3.5 text-pantry-600 dark:text-hud-green" />
-            50-EPOCH TRAINING BENCHMARKS
+            DEEP LEARNING · INSTANCE SEGMENTATION & VOLUMETRIC METRICS
           </div>
           <h2 className="text-3xl sm:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight transition-colors">
-            YOLOv8m Model Performance & Results
+            YOLOv8m-Seg Performance & Volumetric Results
           </h2>
           <p className="text-slate-600 dark:text-slate-300 text-base sm:text-lg transition-colors">
-            Grounded directly in authentic Ultralytics training logs, confusion matrices, and validation runs across 35 produce categories.
+            Grounded in Ultralytics YOLOv8m-Seg training logs, 32 prototype mask channels, and 3D ellipsoidal gram-weight calculations across 35 produce categories.
           </p>
         </div>
 
         {/* Top Metric Cards */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-12">
           <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-5 space-y-1 hover:border-emerald-500/40 transition-colors shadow-sm">
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Mean Avg Precision</span>
-            <div className="text-3xl sm:text-4xl font-black text-pantry-700 dark:text-hud-green font-mono">92.08%</div>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Mask Segmentation mAP</span>
+            <div className="text-3xl sm:text-4xl font-black text-pantry-700 dark:text-hud-green font-mono">92.21%</div>
             <div className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1 pt-1">
               <TrendingUp className="w-3.5 h-3.5 text-pantry-600 dark:text-hud-green" />
-              <span>mAP@50 at Epoch 47</span>
+              <span>Mask mAP@50 (Peak Ep 25)</span>
             </div>
           </div>
 
           <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-5 space-y-1 hover:border-emerald-500/40 transition-colors shadow-sm">
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Detection Precision</span>
-            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">92.37%</div>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Bounding Box mAP</span>
+            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">92.02%</div>
             <div className="text-xs text-slate-600 dark:text-slate-400 flex items-center gap-1 pt-1">
               <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600 dark:text-emerald-400" />
-              <span>Low false-positive rate</span>
+              <span>Box mAP@50 Detection</span>
             </div>
           </div>
 
           <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-5 space-y-1 hover:border-emerald-500/40 transition-colors shadow-sm">
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Detection Recall</span>
-            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">83.22%</div>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Dual-Head Tensor</span>
+            <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">71 Chans</div>
             <div className="text-xs text-slate-500 dark:text-slate-400 pt-1">
-              <span>Broad coverage across angles</span>
+              <span>4 box + 35 cls + 32 mask coeffs</span>
             </div>
           </div>
 
           <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-5 space-y-1 hover:border-emerald-500/40 transition-colors shadow-sm">
-            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">Complexity & Size</span>
-            <div className="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400 font-mono">79.0 GFLOPs</div>
+            <span className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-medium">ONNX Model Runtime</span>
+            <div className="text-3xl sm:text-4xl font-black text-amber-600 dark:text-amber-400 font-mono">110.4 MB</div>
             <div className="text-xs text-slate-500 dark:text-slate-400 pt-1">
-              <span>103.8 MB ONNX Opset 14</span>
+              <span>32 Prototypes @ 160×160</span>
             </div>
           </div>
         </div>
@@ -87,7 +88,7 @@ export const YoloMetrics: React.FC = () => {
                 : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
             }`}
           >
-            <span>Validation Predictions</span>
+            <span>Segmentation Predictions</span>
             <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/20 dark:bg-black/40 text-white dark:text-emerald-300 font-mono">3 Batches</span>
           </button>
           <button
@@ -110,7 +111,18 @@ export const YoloMetrics: React.FC = () => {
             }`}
           >
             <span>Training Curves</span>
-            <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/20 dark:bg-black/40 text-white dark:text-emerald-300 font-mono">Loss & PR</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/20 dark:bg-black/40 text-white dark:text-emerald-300 font-mono">Loss, PR & F1</span>
+          </button>
+          <button
+            onClick={() => setActiveTab('volumetric')}
+            className={`px-4 py-2 rounded-xl text-sm font-semibold transition-all flex items-center gap-2 ${
+              activeTab === 'volumetric'
+                ? 'bg-pantry-600 text-white shadow-md shadow-pantry-500/20 border border-emerald-400/40'
+                : 'bg-slate-100 dark:bg-white/5 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-white/10'
+            }`}
+          >
+            <span>3D Volumetric Engine</span>
+            <span className="text-[10px] px-1.5 py-0.2 rounded bg-white/20 dark:bg-black/40 text-white dark:text-emerald-300 font-mono">Grams & Cal</span>
           </button>
           <button
             onClick={() => setActiveTab('classes')}
@@ -197,37 +209,191 @@ export const YoloMetrics: React.FC = () => {
 
         {/* Tab 3: Loss & Training Curves */}
         {activeTab === 'curves' && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-slate-900 dark:text-white text-sm">50-Epoch Training & Validation Loss</h3>
-                <button
-                  onClick={() => setZoomModalImage('./yolo/results.png')}
-                  className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
-                >
-                  <Maximize2 className="w-3.5 h-3.5" />
-                </button>
-              </div>
-              <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
-                <img src="./yolo/results.png" alt="Training Results" className="w-full h-auto object-contain" />
-              </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">Box loss, cls loss, and dfl loss steadily converging over 50 epochs.</p>
+          <div className="space-y-6">
+            <div className="flex justify-center gap-2">
+              <button
+                onClick={() => setCurveType('mask')}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  curveType === 'mask'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300'
+                }`}
+              >
+                Instance Segmentation Mask Curves (YOLOv8-Seg)
+              </button>
+              <button
+                onClick={() => setCurveType('box')}
+                className={`px-4 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                  curveType === 'box'
+                    ? 'bg-emerald-600 text-white shadow-sm'
+                    : 'bg-slate-200 dark:bg-white/10 text-slate-700 dark:text-slate-300'
+                }`}
+              >
+                Bounding Box Detection Curves
+              </button>
             </div>
 
-            <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
-              <div className="flex justify-between items-center">
-                <h3 className="font-bold text-slate-900 dark:text-white text-sm">Precision-Recall Curve (BoxPR)</h3>
-                <button
-                  onClick={() => setZoomModalImage('./yolo/BoxPR_curve.png')}
-                  className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
-                >
-                  <Maximize2 className="w-3.5 h-3.5" />
-                </button>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">35-Epoch Training & Validation Loss</h3>
+                  <button
+                    onClick={() => setZoomModalImage('./yolo/results.png')}
+                    className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
+                  <img src="./yolo/results.png" alt="Training Results" className="w-full h-auto object-contain" />
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">Seg loss, box loss, cls loss, and dfl loss steadily converging with mosaic augmentations.</p>
               </div>
-              <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
-                <img src="./yolo/BoxPR_curve.png" alt="Precision-Recall Curve" className="w-full h-auto object-contain" />
+
+              <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                    {curveType === 'mask' ? 'Mask Precision-Recall Curve (MaskPR)' : 'Box Precision-Recall Curve (BoxPR)'}
+                  </h3>
+                  <button
+                    onClick={() => setZoomModalImage(curveType === 'mask' ? './yolo/MaskPR_curve.png' : './yolo/BoxPR_curve.png')}
+                    className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
+                  <img
+                    src={curveType === 'mask' ? './yolo/MaskPR_curve.png' : './yolo/BoxPR_curve.png'}
+                    alt="Precision-Recall Curve"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">
+                  {curveType === 'mask'
+                    ? 'MaskPR curve demonstrating 92.2% mAP@50 across produce polygon masks.'
+                    : 'BoxPR curve demonstrating 92.0% mAP@50 across bounding boxes.'}
+                </p>
               </div>
-              <p className="text-[11px] text-slate-500 dark:text-slate-400">BoxPR curve demonstrating high area under curve across primary classes.</p>
+
+              <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">
+                    {curveType === 'mask' ? 'Mask F1-Confidence Curve (MaskF1)' : 'Box F1-Confidence Curve (BoxF1)'}
+                  </h3>
+                  <button
+                    onClick={() => setZoomModalImage(curveType === 'mask' ? './yolo/MaskF1_curve.png' : './yolo/BoxF1_curve.png')}
+                    className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
+                  <img
+                    src={curveType === 'mask' ? './yolo/MaskF1_curve.png' : './yolo/BoxF1_curve.png'}
+                    alt="F1-Confidence Curve"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">Optimal confidence operating threshold across all 35 produce classes.</p>
+              </div>
+
+              <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-4 sm:p-6 space-y-3 shadow-xl transition-colors">
+                <div className="flex justify-between items-center">
+                  <h3 className="font-bold text-slate-900 dark:text-white text-sm">Precision & Recall Operating Curves</h3>
+                  <button
+                    onClick={() => setZoomModalImage(curveType === 'mask' ? './yolo/MaskP_curve.png' : './yolo/BoxP_curve.png')}
+                    className="p-1.5 rounded bg-white dark:bg-white/5 hover:bg-slate-100 dark:hover:bg-white/10 text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-white/10"
+                  >
+                    <Maximize2 className="w-3.5 h-3.5" />
+                  </button>
+                </div>
+                <div className="rounded-xl overflow-hidden bg-black border border-slate-300 dark:border-emerald-500/20 p-2">
+                  <img
+                    src={curveType === 'mask' ? './yolo/MaskP_curve.png' : './yolo/BoxP_curve.png'}
+                    alt="Precision Curve"
+                    className="w-full h-auto object-contain"
+                  />
+                </div>
+                <p className="text-[11px] text-slate-500 dark:text-slate-400">Operating curve balancing false discovery with detection sensitivity.</p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Tab 4: 3D Volumetric Weight & Calorie Engine */}
+        {activeTab === 'volumetric' && (
+          <div className="space-y-6">
+            <div className="bg-slate-50 dark:bg-[#0E1711] border border-slate-200 dark:border-white/10 rounded-2xl p-6 sm:p-8 space-y-6 shadow-xl transition-colors">
+              <div className="max-w-3xl">
+                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-500/10 text-emerald-800 dark:text-emerald-400 border border-emerald-300 dark:border-emerald-500/20 text-xs font-mono font-medium mb-3">
+                  INNOVATION · COMPUTER VISION TO PHYSICAL GRAMS
+                </div>
+                <h3 className="text-2xl font-bold text-slate-900 dark:text-white">
+                  3D Ellipsoidal Volumetric & Caloric Nutrition Engine
+                </h3>
+                <p className="text-sm text-slate-600 dark:text-slate-300 mt-2">
+                  Traditional food apps require a kitchen scale or guess a static average weight. Smart Pantry reconstructs 3D physical volume directly from the 2D polygon segmentation mask and scales by botanical produce density.
+                </p>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+                <div className="p-4 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/10 space-y-2">
+                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">STEP 1</span>
+                  <div className="font-semibold text-slate-900 dark:text-white text-sm">SAM-2 Polygon Extraction</div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Matrix multiplication of 32 mask coefficients with 160×160 prototypes extracts the exact perimeter polygon contour of each individual fruit or vegetable.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/10 space-y-2">
+                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">STEP 2</span>
+                  <div className="font-semibold text-slate-900 dark:text-white text-sm">3D Spheroid Volume (cm³)</div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Calculates equivalent ellipse major and minor axes (a, b) and infers depth axis (c) using botanical morphology: <code className="text-emerald-600 dark:text-emerald-400 font-mono">V = 4/3 π · a · b · c</code>.
+                  </p>
+                </div>
+
+                <div className="p-4 rounded-xl bg-white dark:bg-black/40 border border-slate-200 dark:border-white/10 space-y-2">
+                  <span className="text-xs font-mono text-emerald-600 dark:text-emerald-400 font-bold">STEP 3</span>
+                  <div className="font-semibold text-slate-900 dark:text-white text-sm">Density & Calorie Scaling</div>
+                  <p className="text-xs text-slate-500 dark:text-slate-400">
+                    Scales volume by botanical specific gravity <code className="text-emerald-600 dark:text-emerald-400 font-mono">ρ (g/cm³)</code> into physical grams, dynamically recalculating exact calories, carbs, and fiber.
+                  </p>
+                </div>
+              </div>
+
+              <div className="border-t border-slate-200 dark:border-white/10 pt-4">
+                <div className="text-xs font-mono text-slate-500 dark:text-slate-400 uppercase font-semibold mb-3">
+                  Sample Botanical Density Table (In-App Database)
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-2 text-xs font-mono">
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🍎 Apple</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.85 g/cm³</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🥔 Potato</span>
+                    <span className="font-bold text-slate-900 dark:text-white">1.05 g/cm³</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🥕 Carrot</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.98 g/cm³</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🍉 Watermelon</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.96 g/cm³</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🍌 Banana</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.92 g/cm³</span>
+                  </div>
+                  <div className="p-2 rounded-lg bg-white dark:bg-white/5 border border-slate-200 dark:border-white/5">
+                    <span className="text-slate-500 dark:text-slate-400 block">🍅 Tomato</span>
+                    <span className="font-bold text-slate-900 dark:text-white">0.95 g/cm³</span>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         )}

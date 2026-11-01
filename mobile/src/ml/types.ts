@@ -9,6 +9,13 @@ export interface Detection {
   score: number;
   /** Normalised to the displayed image, top-left origin: [x, y, width, height] in 0..1 */
   bbox: { x: number; y: number; w: number; h: number };
+  /** Normalised polygon contour coordinates [{x: 0..1, y: 0..1}] from YOLOv8-Seg mask */
+  polygon?: Array<{ x: number; y: number }>;
+  /** 3D volumetric portion weight in grams calculated from segmentation mask + density */
+  estimatedWeightG?: number;
+  /** Dynamic portion nutrition based on estimatedWeightG */
+  nutrition?: { kcal: number; carbs_g: number; fiber_g: number; protein_g: number };
+  isSegmented?: boolean;
   alternatives: AltClass[];
   correctedFrom?: string; // set when the user overrides the class
   removed?: boolean;      // user marked it a false positive

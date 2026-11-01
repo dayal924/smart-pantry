@@ -1,5 +1,5 @@
 {
- "version": "v1-50ep",
+ "version": "v2-seg-35ep",
  "input_size": 640,
  "names": [
   "Apple",
@@ -74,5 +74,8 @@
   "tomato",
   "turnip",
   "watermelon"
- ]
+ ],
+ "task": "segmentation",
+ "segmentation": true,
+ "num_masks": 32
 }
