@@ -2,7 +2,7 @@
   "expo": {
     "name": "Smart Pantry",
     "slug": "smart-pantry",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "scheme": "smartpantry",
     "orientation": "portrait",
     "userInterfaceStyle": "light",
@@ -18,7 +18,7 @@
     },
     "android": {
       "package": "com.smartpantry.app",
-      "versionCode": 3,
+      "versionCode": 4,
       "softwareKeyboardLayoutMode": "resize",
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
