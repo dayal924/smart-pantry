@@ -10,7 +10,7 @@ interface DownloadApkModalProps {
 
 export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onClose }) => {
   const [copied, setCopied] = useState(false);
-  const apkDownloadPath = 'https://expo.dev/artifacts/eas/Rg5nl35n32ICCgf0iWiZrpEsdZnmqX8uIE9zBWzRVVo.apk';
+  const apkDownloadPath = 'https://expo.dev/artifacts/eas/ezaLe581JGhJlVrushqx-dz7v8qR0vO68sVdd40ziuI.apk';
 
   if (!isOpen) return null;
 
@@ -24,7 +24,7 @@ export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onCl
 
     const link = document.createElement('a');
     link.href = apkDownloadPath;
-    link.download = 'smart-pantry-v1.0.2.apk';
+    link.download = 'smart-pantry-v1.0.3.apk';
     link.target = '_blank';
     link.rel = 'noopener noreferrer';
     document.body.appendChild(link);
@@ -64,7 +64,7 @@ export const DownloadApkModal: React.FC<DownloadApkModalProps> = ({ isOpen, onCl
             <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
               <span>Smart Pantry APK</span>
               <span className="text-xs px-2 py-0.5 rounded-full bg-pantry-100 dark:bg-hud-green/20 text-pantry-800 dark:text-hud-green font-mono font-semibold">
-                v1.0.2
+                v1.0.3
               </span>
             </h3>
             <p className="text-xs text-slate-500 dark:text-slate-400">Android Release Build · Native ONNX Runtime</p>
