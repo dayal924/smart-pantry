@@ -64,7 +64,7 @@ export const DownloadSection: React.FC = () => {
                     <h3 className="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
                       <span>Smart Pantry APK</span>
                       <span className="text-xs px-2 py-0.5 rounded-full bg-pantry-100 dark:bg-hud-green/20 text-pantry-800 dark:text-hud-green border border-pantry-300 dark:border-hud-green/30 font-mono font-semibold">
-                        v1.0.3
+                        v1.0.4
                       </span>
                     </h3>
                     <p className="text-xs text-slate-500 dark:text-slate-400">Release Build · Bundled YOLOv8-Seg detector.onnx</p>
@@ -122,7 +122,7 @@ export const DownloadSection: React.FC = () => {
                 className="w-full py-4 rounded-xl font-bold text-white bg-gradient-to-r from-pantry-600 via-emerald-600 to-pantry-500 hover:from-pantry-500 hover:to-emerald-400 shadow-xl shadow-pantry-600/30 hover:shadow-hud-green/30 border border-emerald-400/40 flex items-center justify-center gap-2.5 transition-all text-base group"
               >
                 <Download className="w-5 h-5 text-emerald-100 group-hover:translate-y-0.5 transition-transform" />
-                <span>Download smart-pantry-v1.0.3.apk</span>
+                <span>Download smart-pantry-v1.0.4.apk</span>
               </button>
 
               <div className="flex items-center justify-between text-xs text-slate-500 dark:text-slate-400 px-1">

@@ -80,7 +80,7 @@ export const Footer: React.FC<FooterProps> = ({ onOpenDownloadModal }) => {
               className="px-4 py-2 rounded-xl text-xs font-semibold text-white bg-pantry-600 hover:bg-pantry-500 flex items-center gap-2 border border-emerald-400/30 transition-all shadow-md shadow-pantry-600/20"
             >
               <Smartphone className="w-3.5 h-3.5" />
-              <span>Get smart-pantry-v1.0.3.apk</span>
+              <span>Get smart-pantry-v1.0.4.apk</span>
             </button>
           </div>
         </div>
